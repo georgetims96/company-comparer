@@ -4,8 +4,11 @@ import settings
 
 
 class CompanyFinancials:
+    '''
+    Company Financials 
+    '''
     def __init__(self, cik: str, financial_fields: list):
-        # Check for errors!!!!!
+        # Register financial functions that will be used to populate relevant fields
         self.__financial_functions = {
         "revenue": CompanyFinancials.get_revenue,
         "cogs": CompanyFinancials.get_cogs,
@@ -16,7 +19,9 @@ class CompanyFinancials:
         "rd": CompanyFinancials.get_r_and_d,
         "op": CompanyFinancials.get_op,
         }
+        # Stores company's CIK data
         self.cik = cik
+        # Stores raw API response from 
         self.raw_company_data = CompanyFinancials.get_raw_company_data(self.cik)
         self.accounting_standard = CompanyFinancials.determine_accounting_standard(self.raw_company_data)
         self.currency = CompanyFinancials.determine_currency(self.raw_company_data, self.accounting_standard)

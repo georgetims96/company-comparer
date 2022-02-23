@@ -5,7 +5,6 @@ import RevenueDonutChart from '../charts/RevenueDonutChart';
 import RevenueBarChart from '../charts/RevenueBarChart';
 import RevenueLineChart from '../charts/RevenueLineChart';
 import Paper from '@mui/material/Paper'
-import Divider from '@mui/material/Divider';
 
 export default function Financials (props) {
     const [year, setYear] = useState(props.data.data.years[0]);
@@ -13,7 +12,8 @@ export default function Financials (props) {
     function updateYear(e) {
         setYear(e.target.value);
     }
-    // Get years from data, sort in descending order, and construct select component, with max the default
+    // Get years from data, sort in descending order, and construct select component, with max year (i.e most recent) 
+    // the default
     let yearOptions = (props.data.data.years)
     .sort(function(a, b){return b - a})
     .map(yearOption => <option value={yearOption}>{yearOption}</option>);
