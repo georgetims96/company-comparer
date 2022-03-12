@@ -1,9 +1,9 @@
 import sqlite3
 
-connection = sqlite3.connect('cc.db')
+connection = sqlite3.connect('../data/cc.db')
 
 
-with open('./models/company_codes_schema.sql') as f:
+with open('../schema/company_codes_schema.sql') as f:
     connection.executescript(f.read())
 
 cur = connection.cursor()

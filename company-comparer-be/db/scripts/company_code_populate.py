@@ -2,10 +2,10 @@ import json
 import sqlite3
 
 # FIXME Need to figure out path stuff with flask
-connection = sqlite3.connect('../cc.db')
+connection = sqlite3.connect('../data/cc.db')
 cur = connection.cursor()
 # Maybe pull at regular intervals from SEC rather than local? (https://www.sec.gov/files/company_tickers.json)
-company_code_data = open('../company_tickers.json')
+company_code_data = open('../data/company_tickers.json')
 
 company_code_json = json.load(company_code_data)
 

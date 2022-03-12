@@ -53,6 +53,7 @@ table {
   height: 100%;
   cursor: pointer;
 }
+
 table:hover tr:not(:first-child) {
   background: #FFF;
 }

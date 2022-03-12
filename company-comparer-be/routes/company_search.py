@@ -9,7 +9,7 @@ company_search = Blueprint('company_search', __name__)
 
 @company_search.route('/search/<search_query>')
 def company_code_search(search_query):
-    connection = sqlite3.connect('cc.db')
+    connection = sqlite3.connect('./db/data/cc.db')
     cur = connection.cursor()
     # Query the database given the provided search query
     cur.execute('SELECT * FROM company_codes WHERE company_name LIKE ? OR ticker LIKE ? LIMIT 10', ('%' + search_query.lower() +'%', '%' + search_query.upper() +'%'))
