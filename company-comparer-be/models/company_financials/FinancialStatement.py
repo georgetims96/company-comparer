@@ -1,5 +1,12 @@
 class FinancialStatement:
     def __init__(self, raw_json: dict, accounting_standard: str, currency: str):
+        """
+        Constructor for financial statement superclass
+
+        :param raw_json: the raw company JSON data to be processed
+        :param accounting_standard: the company's accounting standard
+        :param currency: the company's reporting currency
+        """
         self.raw_json = raw_json
         self.accounting_standard = accounting_standard
         self.currency = currency
@@ -7,6 +14,9 @@ class FinancialStatement:
         self.normed_fields = {}
     
     def get_financial_data(self, financial_fields_to_check: list) -> dict:
+        """
+        Gets financial data 
+        """
         # empty dictionary that will contain returned data
         financial_data = {}
         # Loop through provided financial fields

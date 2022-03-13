@@ -1,9 +1,16 @@
 import models.settings as settings
-from models.FinancialStatement import FinancialStatement
+from models.company_financials.FinancialStatement import FinancialStatement
 
 
 class IncomeStatement(FinancialStatement):
     def __init__(self, raw_json: dict, accounting_standard:str, currency: str):
+        """
+        Construct an income statement
+
+        :param raw_json: the raw company JSON data to be processed
+        :param accounting_standard: the company's accounting standard
+        :param currency: the company's reporting currency
+        """
         super().__init__(raw_json, accounting_standard, currency)
         self.comprehensive_years = self.get_comprehensive_fields_years(settings.REVENUE_FIELDS)
         # Populate absolute data fields
@@ -17,15 +24,16 @@ class IncomeStatement(FinancialStatement):
         self.absolute_fields["op"] = self.determine_op()
 
         # Populate normalized data fields
-        # TODO this should be dynmaic from a config file. It should group fields together by common denominator
+        # TODO this should be dynamic from a config file. It should group fields together by common denominator
         self.overlapping_years = self.get_overlapping_years(list(self.absolute_fields.keys()))
         self.normed_fields = self.normalize_financial_data(self.overlapping_years, "revenue", list(self.absolute_fields.keys()))
 
+    def determine_revenue(self) -> dict:
+        """
+        Determines revenue given externally configured fields and instance's raw JSON data
 
-    '''
-    Determines revenue given externally configured fields and raw JSON data
-    '''
-    def determine_revenue(self):
+        :return: company's absolute revenue data in {year : absolute_revenue} format
+        """
         # SEC data is not clean and different companies refer to revenue differently
         # Below are the relevant permutations for revenue, with most common last (as the last overwrites the previous
         revenue_fields = settings.REVENUE_FIELDS
@@ -34,11 +42,13 @@ class IncomeStatement(FinancialStatement):
         # Pass these revenue fields to the get_financial_data function
         return self.get_financial_data(revenue_fields)
     
-    '''
-    Determines COGS given externally configured fields and raw JSON data
-    '''
     def determine_cogs(self) -> dict:
-    # Relevant permutations of COG fields
+        """
+        Determines COGS given externally configured fields and instance's raw JSON data
+
+        :return: company's absolute COGS data in {year : absolute_cogs} format
+        """
+        # Relevant permutations of COG fields
         cog_fields = settings.COGS_FIELDS
         # Filter out fields that aren't in provided raw company data
         cog_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], cog_fields))
