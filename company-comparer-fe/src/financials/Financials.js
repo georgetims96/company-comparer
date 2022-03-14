@@ -3,15 +3,36 @@ import Grid from '@material-ui/core/Grid';
 import IncomeStatement from './IncomeStatement';
 import RevenueDonutChart from '../charts/RevenueDonutChart';
 import RevenueBarChart from '../charts/RevenueBarChart';
+import ExpenseLineChart from '../charts/ExpenseLineChart'
 import RevenueLineChart from '../charts/RevenueLineChart';
 import Paper from '@mui/material/Paper'
 
 export default function Financials (props) {
     const [year, setYear] = useState(props.data.data.years[0]);
+    const [chartType, setChartType] = useState("revenue_growth");
 
     function updateYear(e) {
         setYear(e.target.value);
+        setChartType(prevState => prevState);
     }
+
+    function updateChart(e) {
+        setChartType(e.currentTarget.id);
+    }
+
+    function determineChart(chartTypeInput) {
+        switch (chartTypeInput) {
+            case "revenue":
+                return <RevenueDonutChart data = {props.data} yearSelected={year} />;
+            case "revenue_growth":
+                return <RevenueLineChart data = {props.data} />;
+            default:
+                return <ExpenseLineChart data = {props.data} expenseCat ={chartTypeInput} />;
+        }
+    }
+
+    
+
     // Get years from data, sort in descending order, and construct select component, with max year (i.e most recent) 
     // the default
     let yearOptions = (props.data.data.years)
@@ -32,7 +53,7 @@ export default function Financials (props) {
                                 alignItems: "center"
                             }} 
                             xs={12} md={6}>
-                            <RevenueLineChart data={props.data} />
+                            {determineChart(chartType)}
                         </Grid>
                         <Grid 
                             item
@@ -43,7 +64,7 @@ export default function Financials (props) {
                                 alignItems: "center"
                             }}
                         xs={12} md={6}>
-                            <IncomeStatement data={props.data} yearSelected={year} />
+                            <IncomeStatement data={props.data} yearSelected={year} handleChartChange={updateChart}/>
                         </Grid>
                     </Grid>
                 </Paper>
@@ -51,3 +72,5 @@ export default function Financials (props) {
 }
 
 //<RevenueDonutChart data={props.data} yearSelected={year} />
+
+

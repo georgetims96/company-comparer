@@ -6,6 +6,8 @@
   font-size: 1.0vw;
 }
 
+
+/* IncomeStatement */
 .grossprofit {
   font-weight: bold;
   border-top: 1px solid black;
@@ -45,7 +47,7 @@ FIXME got to be a better way...
 */
 
 
-
+/* FinancialStatement */
 table {
   /*margin: 2rem;
   display: inline;*/

@@ -15,7 +15,11 @@ class FinancialStatement:
     
     def get_financial_data(self, financial_fields_to_check: list) -> dict:
         """
-        Gets financial data 
+        Gets absolute financial data specified by a list of financial fields. Later entries in list will overwrite
+        earlier entries if there two entries both have values for the sam year.
+
+        :param financial_fields_to_check: financial fields as they appear in raw JSON
+        :return: financial data from fields specified, one for each year prioritized as explained above and formatted {year : value}
         """
         # empty dictionary that will contain returned data
         financial_data = {}
@@ -32,11 +36,14 @@ class FinancialStatement:
         # Return the constructed dictionary
         return financial_data
     
-    '''
-    Doesn't assume you've checked field is there
-    '''
     def get_annual_data(self, financial_field:str, year: int) -> int:
-        # FIXME shouldn't this have already been filtered in the calling functions?
+        """
+        Returns financial data for specified financial field  and year
+
+        :param financial_field: the financial field in the raw JSON from which we wish to pull
+        :param year: the year for which we want the data
+        :return: value of the financial field for the given year, if it exists; otherwise, None
+        """
         if financial_field not in self.raw_json['facts'][self.accounting_standard]:
             return None
         annual_data = filter(lambda x: x['fp'] == "FY", 
@@ -48,10 +55,13 @@ class FinancialStatement:
                 return filing['val']
         return None
     
-    '''
-    FIXME need to think of a clever way of dealing with clean company data
-    '''
     def get_overlapping_years(self, fields: list) -> list:
+        """
+        Returns a list of the years for which we have data in the clean, absolute data for all fields specified
+
+        :param fields: the financial fields we wish to check
+        :return: the years for which we have data on all passed financial fields
+        """
         years = []
         # Loop over financial fields provided
         for field in fields:
@@ -61,10 +71,15 @@ class FinancialStatement:
         overlapping_years = FinancialStatement.union_many(years)
         return overlapping_years
     
-    '''
-    FIXME need to improve this
-    '''
     def normalize_financial_data(self, overlapping_years: list, norm_financial_field: str, fields_to_normalize: list) -> dict:
+        """
+        Returns financial data for the passed years normalized using the specified normalizing financial field
+
+        :param overlapping_years: years for which we want normalized data
+        :param norm_financial_field: the financial field from the absolute data we'll use to normalize (i.e. divisor)
+        :param fields_to_normalize: the financial fields from the absolute data that we'll normalize
+        :return: normalized financial data in the format
+        """
         # Will store normalized company data
         norm_company_data = {}
         # Loop over provided financial fields
@@ -82,12 +97,13 @@ class FinancialStatement:
         # Return the normed data
         return norm_company_data
     
-    '''
-    Gets all years for which we have specified list of field data. This is an alternative to the old method of getting comprehensive years.
-    By default, we'll use revenue
-
-    '''
     def get_comprehensive_fields_years(self, financial_fields: list) -> list:
+        """
+        Returns a list of the years for which we have data in the raw JSON data for all fields specified
+
+        :param financial_fields: the financial fields we wish to check
+        :return: the years for which we have data on all passed financial fields
+        """
         # SEC data is not clean and different companies refer to revenue differently
         # Filter out fields that aren't in provided raw dictionary
         financial_fields = filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], financial_fields)
@@ -103,13 +119,29 @@ class FinancialStatement:
         return list(year_set)
     
     def get_normed_data(self):
+        """
+        Getter for normalized data
+
+        :return: normalized data in the format {financial_field: {year : absolute_value}}
+        """
         return self.normed_fields
 
     def get_absolute_data(self):
+        """
+        Getter for absolute data
+
+        :return: absolute financial data in the format {financial_field: {year : relative_value}}
+        """
         return self.absolute_fields
 
     @staticmethod
     def intersect_many(lists: list) -> list:
+        """
+        Returns elements that appear in all passed lists
+
+        :param lists: list of lists whose intersection we'll return
+        :return: list of elements that appear in all lists
+        """
         # If there are no lists, return empty list
         if len(lists) == 0:
             return []
@@ -121,6 +153,12 @@ class FinancialStatement:
     
     @staticmethod
     def union_many(lists: list) -> list:
+        """
+        Returns all elements that appear in any of the passed lists
+
+        :param lists: list of lists whose union we'll return
+        :return: list of all elements that appear in any of the lists
+        """
         # If there are no lists, return empty list
         if len(lists) == 0:
             return []

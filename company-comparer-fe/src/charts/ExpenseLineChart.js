@@ -10,7 +10,7 @@ import { Chart as ChartJS,
 import { Line } from 'react-chartjs-2';
 
 
-export default function RevenueLineChart(props) {
+export default function ExpenseLineChart(props) {
     ChartJS.register(CategoryScale,
         LinearScale,
         PointElement,
@@ -29,12 +29,25 @@ export default function RevenueLineChart(props) {
         datasets: []
     };
 
+    // TODO move to external config file
+    const fieldFormatting = {
+        "revenue": {"text": "Revenue"},
+        "cogs": {"text": "COGS"},
+        "grossprofit": {"text": "Gross Profit"},
+        "rd": {"text": "R&D"},
+        "sga": {"text": "SG&A", "style": ""},
+        "sm": {"text": "SM"},
+        "ga": {"text": "GA"},
+        "oth": {"text": "Other"},
+        "op": {"text": "EBIT"}
+    }
+
     const options = {
         responsive: true,
         plugins: {
             title: {
                 display: true,
-                text: 'Revenue Growth'
+                text: fieldFormatting[props.expenseCat]["text"]
             },
             legend: {
                 // Switch to top maybe
@@ -43,22 +56,24 @@ export default function RevenueLineChart(props) {
         }
     }
 
+    
+
     const financialData = props.data.data;
     const selectedYears = props.data.data.years;
+    const expLine = props.expenseCat;
     // Sort selected years
     selectedYears.sort();
     // Remove first element
     chartData.labels = selectedYears;
-    const minYear = selectedYears[0];
     let companyIndex = 0;
     for (let company of financialData.ciks) {
-        let companyRevenueGrowth = [];
+        let companyExpense = [];
         for (let year of selectedYears) {
-            companyRevenueGrowth.push((financialData[company]["absolute"]["revenue"][year+1]/financialData[company]["absolute"]["revenue"][year])-1);
+            companyExpense.push(financialData[company]["norm"][expLine][year]);
         }
         chartData.datasets.push({
             label: financialData["company_metadata"][company]["ticker"],
-            data: companyRevenueGrowth,
+            data: companyExpense,
             borderColor: colorStrings[companyIndex],
             backgroundColor: colorStrings[companyIndex],
             spanGaps: true

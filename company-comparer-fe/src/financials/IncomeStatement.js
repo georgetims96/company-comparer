@@ -47,7 +47,7 @@ export default function IncomeStatement(props) {
     possibleFields.forEach(field => {
         if (fieldsToRender.has(field)) {
             tableRowsToRender.push(
-                <tr>
+                <tr id={field} onMouseDown={props.handleChartChange}>
                     <td className={`statement_header ${field}_header`}>{ fieldFormatting[field]["text"] }</td>
                     { companiesToRender.map(company => <td className={field}> { !(year in financialData[company]["norm"][field]) || financialData[company]["norm"][field][year] === "N/A" ? "N/A" : financialData[company]["norm"][field][year].toFixed(2) }</td>) }
                 </tr>
@@ -60,6 +60,6 @@ export default function IncomeStatement(props) {
             <table cellspacing={0} className="incomeStatement">
                 {tableRowsToRender}
             </table>
-            </div>
+        </div>
     );
 }

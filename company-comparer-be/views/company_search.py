@@ -1,9 +1,6 @@
 from flask import Blueprint
 from models.company_search.CompanySearchQuery import CompanySearchQuery
 
-# FIXME Should this be here or in route?
-
-
 company_search = Blueprint('company_search', __name__)
 
 @company_search.route('/search/<search_query>')
