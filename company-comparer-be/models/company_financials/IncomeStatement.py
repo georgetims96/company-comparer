@@ -112,12 +112,38 @@ class IncomeStatement(FinancialStatement):
     Determines s,g&a expense given externally configured fields and raw JSON data
     '''
     def determine_s_g_and_a(self) -> dict:
+        s_g_a = {}
+        # Start by trying to add S&M and G&A
+        for year in self.comprehensive_years:
+            s_m_fields = settings.SM_FIELDS
+            s_m_fields.reverse()
+            g_a_fields = settings.GA_FIELDS
+            g_a_fields.reverse()
+            year_sm_field = ""
+            year_ga_field = ""
+            if year not in s_g_a:
+                for s_m_field in s_m_fields:
+                    year_sm_field = self.get_annual_data(s_m_field, year)
+                    if year_sm_field:
+                        break
+                for g_a_field in g_a_fields:
+                    year_ga_field = self.get_annual_data(g_a_field, year)
+                    if year_ga_field:
+                        break
+                if year_sm_field and year_ga_field:
+                    s_g_a[year] = year_sm_field + year_ga_field
         # Relevant SG&A fields
         s_g_a_fields = settings.SGA_FIELDS
         # Filter out fields that are not in 10-K
         s_g_a_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], s_g_a_fields))
+        s_g_a_collapsed = {}
         if len(s_g_a_fields) != 0:
-            s_g_a = self.get_financial_data(s_g_a_fields)
+            s_g_a_collapsed = self.get_financial_data(s_g_a_fields)
+        for year in self.comprehensive_years:
+            if year not in s_g_a and year in s_g_a_collapsed:
+                s_g_a[year] = s_g_a_collapsed[year]
+        '''
+        FIXME After some testing, this should be safe to remove
         # Now backfill the data
         for year in self.comprehensive_years:
             s_m_fields = settings.SM_FIELDS
@@ -137,7 +163,9 @@ class IncomeStatement(FinancialStatement):
                         break
                 if year_sm_field and year_ga_field:
                     s_g_a[year] = year_sm_field + year_ga_field
+        '''
         return s_g_a
+        
 
     '''
     Determines R&D expense given externally configured fields and raw JSON data
