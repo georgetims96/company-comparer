@@ -113,7 +113,7 @@ class IncomeStatement(FinancialStatement):
     '''
     def determine_s_g_and_a(self) -> dict:
         s_g_a = {}
-        # Start by trying to add S&M and G&A
+        # Start by trying to add S&M and G&A for each of the comprehensive years
         for year in self.comprehensive_years:
             s_m_fields = settings.SM_FIELDS
             s_m_fields.reverse()

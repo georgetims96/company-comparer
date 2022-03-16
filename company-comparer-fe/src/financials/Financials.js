@@ -5,6 +5,7 @@ import RevenueDonutChart from '../charts/RevenueDonutChart';
 import RevenueBarChart from '../charts/RevenueBarChart';
 import ExpenseLineChart from '../charts/ExpenseLineChart'
 import RevenueLineChart from '../charts/RevenueLineChart';
+import RevenueStackedChart from '../charts/RevenueStackedChart';
 import Paper from '@mui/material/Paper'
 
 export default function Financials (props) {
@@ -23,7 +24,8 @@ export default function Financials (props) {
     function determineChart(chartTypeInput) {
         switch (chartTypeInput) {
             case "revenue":
-                return <RevenueDonutChart data = {props.data} yearSelected={year} />;
+                // RevenueDonutChart
+                return <RevenueStackedChart data = {props.data} yearSelected={year} />;
             case "revenue_growth":
                 return <RevenueLineChart data = {props.data} />;
             default:
