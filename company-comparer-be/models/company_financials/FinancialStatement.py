@@ -1,5 +1,6 @@
+import models.settings as settings
 class FinancialStatement:
-    def __init__(self, raw_json: dict, accounting_standard: str, currency: str):
+    def __init__(self, raw_json: dict, accounting_standard: str, currency: str, accns: dict):
         """
         Constructor for financial statement superclass
 
@@ -10,33 +11,43 @@ class FinancialStatement:
         self.raw_json = raw_json
         self.accounting_standard = accounting_standard
         self.currency = currency
+        self.accns = accns
         self.absolute_fields = {}
         self.normed_fields = {}
     
-    def get_financial_data(self, financial_fields_to_check: list) -> dict:
+    def get_financial_data(self, financial_fields_to_check: list, attrib:str ='val') -> dict:
         """
         Gets absolute financial data specified by a list of financial fields. Later entries in list will overwrite
-        earlier entries if there two entries both have values for the sam year.
+        earlier entries if there two entries both have values for the same year.
 
         :param financial_fields_to_check: financial fields as they appear in raw JSON
         :return: financial data from fields specified, one for each year prioritized as explained above and formatted {year : value}
         """
-        # empty dictionary that will contain returned data
+        # Empty shell for financial data to return
         financial_data = {}
-        # Loop through provided financial fields
+        # Loop through passed financial fields
         for financial_field in financial_fields_to_check:
-            # Filter so we only get annual filings
-            annual_data = filter(lambda x: x['fp'] == "FY", 
-            self.raw_json['facts'][self.accounting_standard][financial_field]['units'][self.currency])
-            # Unfortunately, this will still yield some garbage
-            for filing in annual_data:
-                # Filter out relevant numbers (len == 6 because we want CY2020 not CY2020Q1)
-                if 'frame' in filing and len(filing['frame']) == 6:
-                    financial_data[int(filing['frame'][2:])] = filing['val']
-        # Return the constructed dictionary
+            # Filter out non-10-K forms
+            filtered_data = [x for x in self.raw_json['facts'][self.accounting_standard][financial_field]['units'][self.currency] if x["form"] == "10-K" or x["form"] == "10-K/A"]
+            # Loop over all years for which we have 10-K filings
+            for year in self.accns:
+                # Get only financial entries for the current year
+                year_data = [x for x in filtered_data if x['accn'] == self.accns[year] and x['fy'] == year]
+                # Filter out interim/quarterly data
+                year_data = [x for x in year_data if FinancialStatement.days_apart(x['start'], x['end']) > 300]
+                # If we have at least one entry remaining
+                if year_data:
+                    # Get the latest entry (i.e. the entry for the most recent fiscal year)
+                    max_entry = year_data[0]
+                    for entry in year_data:
+                        if int(entry['start'].split('-')[0]) > int(max_entry['start'].split('-')[0]):
+                            max_entry = entry
+                    # And set the relevant year in our shell to return to the value at the entry's specified attribute
+                    financial_data[year] = max_entry[attrib]
+        # Return the financial data
         return financial_data
     
-    def get_annual_data(self, financial_field:str, year: int) -> int:
+    def get_annual_data(self, financial_field:str, year: int, attrib:str ='val') -> int:
         """
         Returns financial data for specified financial field  and year
 
@@ -52,7 +63,7 @@ class FinancialStatement:
         for filing in annual_data:
             # Filter out relevant numbers (len == 6 because we want CY2020 not CY2020Q1)
             if 'frame' in filing and len(filing['frame']) == 6 and filing['frame'] == 'CY' + str(year):
-                return filing['val']
+                return filing[attrib]
         return None
     
     def get_overlapping_years(self, fields: list) -> list:
@@ -113,7 +124,8 @@ class FinancialStatement:
             years_in_field = self.raw_json['facts'][self.accounting_standard][field]['units'][self.currency]
             for year in years_in_field:
                 if 'frame' in year and len(year['frame']) == 6:
-                    year_set.add(int(year['frame'][2:]))
+                    # year_set.add(int(year['frame'][2:]))
+                    year_set.add(year['fy'])
 
         # Return list of fields' years
         return list(year_set)
@@ -167,4 +179,12 @@ class FinancialStatement:
             for i in range(1, len(lists)):
                 union_set = union_set.union(set(lists[i]))
         return list(union_set)
+    
+    @staticmethod
+    def days_apart(start_date, end_date):
+        start_split = start_date.split('-')
+        end_split = end_date.split('-')
+        start_val = int(start_split[0]) * 365 + int(start_split[1]) * 30 + int(start_split[2])
+        end_val = int(end_split[0]) * 365 + int(end_split[1]) * 30 + int(end_split[2])
+        return end_val - start_val
     

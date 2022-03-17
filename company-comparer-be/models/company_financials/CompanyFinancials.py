@@ -1,6 +1,7 @@
 import requests
 from models.company_financials.IncomeStatement import IncomeStatement
 from models.company_financials.FinancialStatement import FinancialStatement
+import models.settings as settings
 
 class CompanyFinancials:
     def __init__(self, cik: str):
@@ -15,7 +16,9 @@ class CompanyFinancials:
         self.accounting_standard = self.determine_accounting_standard()
         # Determine currency for passed company
         self.currency = self.determine_currency()
-        self.income_statement = IncomeStatement(self.raw_json_data, self.accounting_standard, self.currency)
+        self.accns = self.get_accns()
+        print(self.accns)
+        self.income_statement = IncomeStatement(self.raw_json_data, self.accounting_standard, self.currency, self.accns)
 
     @staticmethod
     def download_raw_json(cik: str) -> dict:
@@ -62,6 +65,34 @@ class CompanyFinancials:
             for currency in potential_currency_fields:
                 if currency in self.raw_json_data['facts'][self.accounting_standard][field]['units']: return currency
     
+    def get_accns(self) -> str:
+        """
+        Returns accn for 10-K filings, which will be useful for constructing links. N.B. that this replicates a lot of financial statment code.
+        Could probably refactor
+
+        :return: {year : accn}
+        """
+        # empty dictionary that will contain returned data
+        financial_data = {}
+        financial_fields_to_check = settings.OP_INC_FIELDS
+        # Filter out fields that aren't in provided raw company data
+        financial_fields_to_check = list(filter(lambda x: x in self.raw_json_data['facts'][self.accounting_standard], financial_fields_to_check))
+
+        # Loop through provided financial fields
+        for financial_field in financial_fields_to_check:
+            # Filter so we only get annual filings
+            annual_data = filter(lambda x: x['fp'] == "FY" and (x['form'] == "10-K" or x['form'] == "10-K/A"), 
+            self.raw_json_data['facts'][self.accounting_standard][financial_field]['units'][self.currency])
+            # Unfortunately, this will still yield some garbage
+            for filing in annual_data:
+                # Filter out relevant numbers (len == 6 because we want CY2020 not CY2020Q1)
+                #if 'frame' in filing and len(filing['frame']) == 6:
+                    # FIXME MIGHT NEED TO CHANGE FINANCIAL DATA 
+                financial_data[filing['fy']] = filing['accn']
+        # Return the constructed dictionary
+        return financial_data
+       
+
     def generate_json(self) -> dict:
         """
         Generate the appropriately formated JSON that will contain the company's processed data
@@ -75,6 +106,7 @@ class CompanyFinancials:
         json_to_return['data']['years'] = self.income_statement.get_comprehensive_years()
         json_to_return['data']['fields'] = self.income_statement.get_fields()
         json_to_return['data'][self.cik] = {}
+        json_to_return['data'][self.cik]['accn'] = self.get_accns()
         json_to_return['data'][self.cik]['norm'] = self.income_statement.get_normed_data()
         json_to_return['data'][self.cik]['absolute'] = self.income_statement.get_absolute_data()
         return json_to_return

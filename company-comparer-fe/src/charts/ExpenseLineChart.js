@@ -53,7 +53,13 @@ export default function ExpenseLineChart(props) {
                 // Switch to top maybe
                   position: 'bottom',
             },
-        }
+        },
+        scales: {
+            y: {
+                min: 0.0,
+                max: 1.0
+            }
+        },
     }
 
     

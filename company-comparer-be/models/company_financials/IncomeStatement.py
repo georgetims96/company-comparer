@@ -3,7 +3,7 @@ from models.company_financials.FinancialStatement import FinancialStatement
 
 
 class IncomeStatement(FinancialStatement):
-    def __init__(self, raw_json: dict, accounting_standard:str, currency: str):
+    def __init__(self, raw_json: dict, accounting_standard:str, currency: str, accns: dict):
         """
         Construct an income statement
 
@@ -11,7 +11,7 @@ class IncomeStatement(FinancialStatement):
         :param accounting_standard: the company's accounting standard
         :param currency: the company's reporting currency
         """
-        super().__init__(raw_json, accounting_standard, currency)
+        super().__init__(raw_json, accounting_standard, currency, accns)
         self.comprehensive_years = self.get_comprehensive_fields_years(settings.REVENUE_FIELDS)
         # Populate absolute data fields
         self.absolute_fields["revenue"] = self.determine_revenue()
@@ -52,6 +52,7 @@ class IncomeStatement(FinancialStatement):
         cog_fields = settings.COGS_FIELDS
         # Filter out fields that aren't in provided raw company data
         cog_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], cog_fields))
+        # FIXME just return 
         return self.get_financial_data(cog_fields)
     
     '''

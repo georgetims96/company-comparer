@@ -15,6 +15,20 @@ export default function IncomeStatement(props) {
         "oth": {"text": "Other"},
         "op": {"text": "EBIT"}
     }
+
+    // 
+    function openFiling(e) {
+        if (e.detail == 2) {
+            const rawText = e.currentTarget.id;
+            const linkDetails = rawText.split('&');
+            let cik = linkDetails[0];
+            cik = cik.replace(/^0+/, '');
+            //https://www.sec.gov/Archives/edgar/data/320193/000032019321000105/
+            let accnOrig = linkDetails[1]
+            let accnTrunc = accnOrig.replace(/-/g, '');
+            window.open(`https://www.sec.gov/Archives/edgar/data/${cik}/${accnTrunc}/${accnOrig}-index.html`);
+        }
+    }
     
     function renderIncomeFields(financialData) {
         // Construct the "other" line. In short, it's a plug given other values
@@ -42,7 +56,8 @@ export default function IncomeStatement(props) {
         let tableRowsToRender = [];
         tableRowsToRender.push(<tr>
             <td></td>
-                { companiesToRender.map(cik => <td><b>{numCompanies < 2 ? financialData["company_metadata"][cik]["name"] : financialData["company_metadata"][cik]["ticker"]} </b></td>)}
+                { companiesToRender.map(cik => 
+                <td onClick={openFiling} id={`${cik}&${financialData[cik]['accn'][year]}`}><b>{numCompanies < 2 ? financialData["company_metadata"][cik]["name"] : financialData["company_metadata"][cik]["ticker"]} </b></td>)}
             </tr>)
         possibleFields.forEach(field => {
             if (fieldsToRender.has(field)) {
