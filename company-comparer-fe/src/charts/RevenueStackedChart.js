@@ -31,6 +31,12 @@ export default function RevenueStackedChart(props) {
         datasets: []
     };
 
+    // We do not want to allow the removal of datasets on revenue share
+    const newLegendClickHandler = function (e, legendItem, legend) {
+        const index = legendItem.datasetIndex;
+        const type = legend.chart.config.type;
+    };
+
     const options = {
         responsive: true,
         plugins: {
@@ -41,6 +47,8 @@ export default function RevenueStackedChart(props) {
             legend: {
                 // Switch to top maybe
                   position: 'bottom',
+                  onClick: newLegendClickHandler
+                  // display: false
             },
         },
         scales: {
