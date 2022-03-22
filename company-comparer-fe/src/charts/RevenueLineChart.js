@@ -8,7 +8,7 @@ import { Chart as ChartJS,
     Tooltip,
     Legend,} from 'chart.js';
 import { Line } from 'react-chartjs-2';
-
+import settings from './settings';
 
 export default function RevenueLineChart(props) {
     ChartJS.register(CategoryScale,
@@ -37,8 +37,8 @@ export default function RevenueLineChart(props) {
                 text: 'Revenue Growth'
             },
             legend: {
-                // Switch to top maybe
-                  position: 'bottom',
+                  position: settings.legendPosition,
+                  onClick: settings.preventDataRemoval
             },
         }
     }

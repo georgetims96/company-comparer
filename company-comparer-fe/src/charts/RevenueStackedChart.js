@@ -9,6 +9,7 @@ import { Chart as ChartJS,
     Legend, 
     Filler} from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import settings from './settings.js';
 
 
 export default function RevenueStackedChart(props) {
@@ -31,12 +32,6 @@ export default function RevenueStackedChart(props) {
         datasets: []
     };
 
-    // We do not want to allow the removal of datasets on revenue share
-    const newLegendClickHandler = function (e, legendItem, legend) {
-        const index = legendItem.datasetIndex;
-        const type = legend.chart.config.type;
-    };
-
     const options = {
         responsive: true,
         plugins: {
@@ -45,10 +40,8 @@ export default function RevenueStackedChart(props) {
                 text: 'Revenue Share'
             },
             legend: {
-                // Switch to top maybe
-                  position: 'bottom',
-                  onClick: newLegendClickHandler
-                  // display: false
+                  position: settings.legendPosition,
+                  onClick: settings.preventDataRemoval
             },
         },
         scales: {
@@ -56,7 +49,9 @@ export default function RevenueStackedChart(props) {
 
             },
             y: {
-                stacked: true
+                stacked: true,
+                min: 0.0,
+                max: 1.0
             },
         },
         elements: {

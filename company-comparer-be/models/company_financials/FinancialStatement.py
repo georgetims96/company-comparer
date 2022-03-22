@@ -28,6 +28,7 @@ class FinancialStatement:
         # Loop through passed financial fields
         for financial_field in financial_fields_to_check:
             # Filter out non-10-K forms
+            # FIXME what about 20-F?
             filtered_data = [x for x in self.raw_json['facts'][self.accounting_standard][financial_field]['units'][self.currency] if x["form"] == "10-K" or x["form"] == "10-K/A"]
             # Loop over all years for which we have 10-K filings
             for year in self.accns:

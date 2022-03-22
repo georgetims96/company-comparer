@@ -8,6 +8,7 @@ import { Chart as ChartJS,
     Tooltip,
     Legend,} from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import settings from './settings';
 
 
 export default function ExpenseLineChart(props) {
@@ -50,8 +51,7 @@ export default function ExpenseLineChart(props) {
                 text: fieldFormatting[props.expenseCat]["text"]
             },
             legend: {
-                // Switch to top maybe
-                  position: 'bottom',
+                  position: settings.legendPosition,
             },
         },
         scales: {

@@ -9,6 +9,7 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
+import settings from './settings';
 
 
 
@@ -35,7 +36,8 @@ export default function RevenueBarChart(props) {
       plugins: {
         legend: {
           // Switch to top maybe
-          position: 'bottom',
+          position: settings.legendPosition,
+          onClick: settings.preventDataRemoval
         },
         title: {
           display: true,
