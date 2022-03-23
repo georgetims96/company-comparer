@@ -48,7 +48,7 @@ class CompanyFinancials:
         """
         # List of supported accounting standards
         # TODO should add to settings configurations
-        potential_accounting_standards = ["us-gaap", "ifrs-full"]
+        potential_accounting_standards = settings.ACCOUNTING_STANDARDS
         for standard in potential_accounting_standards:
             if standard in self.raw_json_data['facts']: return standard
 
@@ -59,8 +59,7 @@ class CompanyFinancials:
         :return: The company's reporting currency (i.e. USD, GBP etc. )
         """
         # List of supported currencies
-        # TODO should add to settings configuration
-        potential_currency_fields = ["USD", "EUR", "CAD", "GBP"]
+        potential_currency_fields = settings.CURRENCY_FIELDS
         for field in self.raw_json_data['facts'][self.accounting_standard]:
             for currency in potential_currency_fields:
                 if currency in self.raw_json_data['facts'][self.accounting_standard][field]['units']: return currency

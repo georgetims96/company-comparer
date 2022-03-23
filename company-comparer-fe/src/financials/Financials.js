@@ -46,7 +46,7 @@ export default function Financials (props) {
     return (<div>
                 {yearSelection}
                 <Paper>
-                    <Grid container spacing={2}>
+                    <Grid container spacing={1}>
                         <Grid item
                             direction="column"
                             style={{

@@ -18,14 +18,18 @@ export default function IncomeStatement(props) {
 
     // 
     function openFiling(e) {
+        // Make sure it's a double click
         if (e.detail == 2) {
+            // Get the 10-K identifier
             const rawText = e.currentTarget.id;
+            // The below converts the identifier to a link
             const linkDetails = rawText.split('&');
             let cik = linkDetails[0];
             cik = cik.replace(/^0+/, '');
             //https://www.sec.gov/Archives/edgar/data/320193/000032019321000105/
             let accnOrig = linkDetails[1]
             let accnTrunc = accnOrig.replace(/-/g, '');
+            // Redirect user to link
             window.open(`https://www.sec.gov/Archives/edgar/data/${cik}/${accnTrunc}/${accnOrig}-index.html`);
         }
     }

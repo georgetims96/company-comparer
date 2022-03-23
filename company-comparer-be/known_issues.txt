@@ -1,0 +1,12 @@
+# Issues
+
+## Specific bugs
+
+- Merck: skipping several 10-Ks
+= Darden: Recognizing years for which we have no annual filings
+- CrowdStrike (0001661779): not loading anything
+
+
+## General bugs
+
+- N/As on first load for several companies, including Walmart, Darden, Domino's Pizza
