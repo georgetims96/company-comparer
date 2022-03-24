@@ -29,7 +29,8 @@ class FinancialStatement:
         for financial_field in financial_fields_to_check:
             # Filter out non-10-K forms
             # FIXME what about 20-F?
-            filtered_data = [x for x in self.raw_json['facts'][self.accounting_standard][financial_field]['units'][self.currency] if x["form"] == "10-K" or x["form"] == "10-K/A"]
+            filtered_data = [x for x in self.raw_json['facts'][self.accounting_standard][financial_field]['units'][self.currency] \
+                if x["form"] in settings.ANNUAL_FORMS]
             # Loop over all years for which we have 10-K filings
             for year in self.accns:
                 # Get only financial entries for the current year
@@ -108,27 +109,24 @@ class FinancialStatement:
                     norm_company_data[field][year] = self.absolute_fields[field][year] / self.absolute_fields[norm_financial_field][year]
         # Return the normed data
         return norm_company_data
-    
-    def get_comprehensive_fields_years(self, financial_fields: list) -> list:
-        """
-        Returns a list of the years for which we have data in the raw JSON data for all fields specified
 
-        :param financial_fields: the financial fields we wish to check
-        :return: the years for which we have data on all passed financial fields
+    def get_comprehensive_fields_years(self, financial_fields_to_check: list) -> list:
         """
-        # SEC data is not clean and different companies refer to revenue differently
-        # Filter out fields that aren't in provided raw dictionary
-        financial_fields = filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], financial_fields)
-        # Populate list with all revenue years we have
+        Gets absolute financial data specified by a list of financial fields. Later entries in list will overwrite
+        earlier entries if there two entries both have values for the same year.
+
+        :param financial_fields_to_check: financial fields as they appear in raw JSON
+        :return: financial data from fields specified, one for each year prioritized as explained above and formatted {year : value}
+        """
+        # Empty shell for financial data to return
         year_set = set()
-        for field in financial_fields:
+        filtered_financial_fields = [x for x in self.raw_json['facts'][self.accounting_standard] if x in financial_fields_to_check]
+        # Loop through passed financial fields
+        for field in filtered_financial_fields:
             years_in_field = self.raw_json['facts'][self.accounting_standard][field]['units'][self.currency]
             for year in years_in_field:
-                if 'frame' in year and len(year['frame']) == 6:
-                    # year_set.add(int(year['frame'][2:]))
+                if year['fp'] == "FY" and year["form"] in settings.ANNUAL_FORMS:
                     year_set.add(year['fy'])
-
-        # Return list of fields' years
         return list(year_set)
     
     def get_normed_data(self):

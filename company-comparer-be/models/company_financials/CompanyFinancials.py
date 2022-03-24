@@ -17,7 +17,6 @@ class CompanyFinancials:
         # Determine currency for passed company
         self.currency = self.determine_currency()
         self.accns = self.get_accns()
-        print(self.accns)
         self.income_statement = IncomeStatement(self.raw_json_data, self.accounting_standard, self.currency, self.accns)
 
     @staticmethod
@@ -80,7 +79,7 @@ class CompanyFinancials:
         # Loop through provided financial fields
         for financial_field in financial_fields_to_check:
             # Filter so we only get annual filings
-            annual_data = filter(lambda x: x['fp'] == "FY" and (x['form'] == "10-K" or x['form'] == "10-K/A"), 
+            annual_data = filter(lambda x: x['fp'] == "FY" and (x['form'] in settings.ANNUAL_FORMS), 
             self.raw_json_data['facts'][self.accounting_standard][financial_field]['units'][self.currency])
             # Unfortunately, this will still yield some garbage
             for filing in annual_data:

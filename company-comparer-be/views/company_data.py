@@ -13,5 +13,5 @@ def company_financial_data(cik):
         #print(company_financials.generate_json())
         companies_json_data.append(company_financials)
     dat_to_return = CompanyFinancials.merge_company_data(companies_json_data)
-    #print(dat_to_return)
+    print(dat_to_return)
     return dat_to_return
