@@ -12,8 +12,9 @@ class IncomeStatement(FinancialStatement):
         :param currency: the company's reporting currency
         """
         super().__init__(raw_json, accounting_standard, currency, accns)
-        # TODO Might want to replace with accn years 
-        self.comprehensive_years = self.get_comprehensive_fields_years(settings.REVENUE_FIELDS)
+        # TODO Might want to replace with revenue years i.e.
+        # self.comprehensive_years = self.get_comprehensive_fields_years(settings.REVENUE_FIELDS)
+        self.comprehensive_years = self.get_accn_years()
         # Populate absolute data fields
         self.absolute_fields["revenue"] = self.determine_revenue()
         self.absolute_fields["cogs"] = self.determine_cogs()

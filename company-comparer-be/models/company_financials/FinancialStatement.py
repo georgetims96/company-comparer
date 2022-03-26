@@ -84,6 +84,16 @@ class FinancialStatement:
         overlapping_years = FinancialStatement.union_many(years)
         return overlapping_years
     
+    def get_accn_years(self) -> list:
+        """
+        Returns years for which we have 10-Ks
+
+        FIXME not that some companies, like Darden have filings that are not being picked up currently.
+        This needs to be rectified.
+        """
+        return list(self.accns.keys())
+
+
     def normalize_financial_data(self, overlapping_years: list, norm_financial_field: str, fields_to_normalize: list) -> dict:
         """
         Returns financial data for the passed years normalized using the specified normalizing financial field

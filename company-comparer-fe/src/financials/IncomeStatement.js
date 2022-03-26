@@ -16,7 +16,6 @@ export default function IncomeStatement(props) {
         "op": {"text": "EBIT"}
     }
 
-    // 
     function openFiling(e) {
         // Make sure it's a double click
         if (e.detail == 2) {
