@@ -54,6 +54,7 @@ table {
   width: 100%;
   height: 100%;
   cursor: pointer;
+  border: 1px solid lightgray;
 }
 
 table:hover tr:not(:first-child) {
@@ -62,6 +63,12 @@ table:hover tr:not(:first-child) {
 tr:not(:first-child):hover td:not(:first-child){
   background: #EEE;
 }
+
+tr:first-child {
+  background: rgb(245, 245, 245);
+  border-bottom: 1px solid black;
+}
+
 td {
   text-align: center;
 }
