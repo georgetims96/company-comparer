@@ -40,18 +40,34 @@ export default function RevenueLineChart(props) {
                   position: settings.legendPosition,
                   onClick: settings.preventDataRemoval
             },
-        }
+        },
+        scales: {
+            x: {
+
+            },
+            y: {
+                ticks: {
+                    callback: function(value, index, values) {
+                    return (value * 100).toString() + "%";
+                    }
+                },
+            },
+        },
     }
 
     const financialData = props.data.data;
     const selectedYears = props.data.data.years;
-    // Sort selected years
+    // Sort selected years. Will mutate array
     selectedYears.sort();
     // Remove first element
     chartData.labels = selectedYears;
     const minYear = selectedYears[0];
     let companyIndex = 0;
-    for (let company of financialData.ciks) {
+    /*
+    financial
+    for (let company of financialData.ciks)
+    */
+   financialData.ciks.forEach (company => {
         let companyRevenueGrowth = [];
         for (let year of selectedYears) {
             companyRevenueGrowth.push((financialData[company]["absolute"]["revenue"][year+1]/financialData[company]["absolute"]["revenue"][year])-1);
@@ -64,7 +80,7 @@ export default function RevenueLineChart(props) {
             spanGaps: true
         });
         companyIndex += 1;
-    }
+    });
    return (
         <div style={{width:"60%"}}>
             <Line data={chartData} options={options} width={1} height={1} />
