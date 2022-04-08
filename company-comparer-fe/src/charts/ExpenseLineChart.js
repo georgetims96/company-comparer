@@ -75,7 +75,7 @@ export default function ExpenseLineChart(props) {
     for (let company of financialData.ciks) {
         let companyExpense = [];
         for (let year of selectedYears) {
-            companyExpense.push(financialData[company]["norm"][expLine][year]);
+            companyExpense.push(financialData[company]["is"]["norm"][expLine][year]);
         }
         chartData.datasets.push({
             label: financialData["company_metadata"][company]["ticker"],

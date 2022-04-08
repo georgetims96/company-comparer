@@ -18,17 +18,29 @@ export default function Financials (props) {
     }
 
     function updateChart(e) {
-        setChartType(e.currentTarget.id);
+        // Get selected chart type
+        let newChartType = e.currentTarget.id;
+        // Check to see if it's the same (i.e. we're unclicking)
+        if (newChartType === chartType) {
+            // If so, set chart back to original revenue growth chart
+            setChartType("revenue_growth");
+        } else {
+            // Otherwise, update chart to new chart type
+            setChartType(newChartType);
+        }
     }
 
     function determineChart(chartTypeInput) {
         switch (chartTypeInput) {
             case "revenue":
-                // RevenueDonutChart
+                // Revenue share chart
                 return <RevenueStackedChart data = {props.data} yearSelected={year} />;
             case "revenue_growth":
+                // Revenue growth chart
                 return <RevenueLineChart data = {props.data} />;
             default:
+                // Any other chart will have the same format
+                // Differentiate the exact type using expenseCat prop
                 return <ExpenseLineChart data = {props.data} expenseCat ={chartTypeInput} />;
         }
     }

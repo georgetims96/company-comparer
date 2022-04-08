@@ -105,8 +105,9 @@ class CompanyFinancials:
         json_to_return['data']['fields'] = self.income_statement.get_fields()
         json_to_return['data'][self.cik] = {}
         json_to_return['data'][self.cik]['accn'] = self.get_accns()
-        json_to_return['data'][self.cik]['norm'] = self.income_statement.get_normed_data()
-        json_to_return['data'][self.cik]['absolute'] = self.income_statement.get_absolute_data()
+        json_to_return['data'][self.cik]['is'] = {}
+        json_to_return['data'][self.cik]['is']['norm'] = self.income_statement.get_normed_data()
+        json_to_return['data'][self.cik]['is']['absolute'] = self.income_statement.get_absolute_data()
         return json_to_return
     
     @staticmethod

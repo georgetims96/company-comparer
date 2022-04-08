@@ -74,13 +74,13 @@ export default function RevenueStackedChart(props) {
     selectedYears.forEach((year) => {
         revenueTotal[year] = 0;
         financialData.ciks.forEach(company => {
-            revenueTotal[year] += financialData[company]["absolute"]["revenue"][year];
+            revenueTotal[year] += financialData[company]["is"]["absolute"]["revenue"][year];
         });
     });
     for (let company of financialData.ciks) {
         let companyRevenueShare = [];
         for (let year of selectedYears) {
-            companyRevenueShare.push((financialData[company]["absolute"]["revenue"][year] / revenueTotal[year]));
+            companyRevenueShare.push((financialData[company]["is"]["absolute"]["revenue"][year] / revenueTotal[year]));
         }
         chartData.datasets.push({
             label: financialData["company_metadata"][company]["ticker"],

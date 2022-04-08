@@ -10,3 +10,10 @@
 ## General bugs
 
 - N/As on first load for several companies, including Walmart, Darden, Domino's Pizza
+- 
+
+
+
+# Charts Bugs
+- Revenue growth. Percentage is now on Y-Axis, but highlighting on datapoint still gives decimal
+- At half screen chart is invisible given data indicators.

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export default function IncomeStatement(props) {
     // TODO These should probably be in a config file
@@ -18,7 +19,7 @@ export default function IncomeStatement(props) {
 
     function openFiling(e) {
         // Make sure it's a double click
-        if (e.detail == 2) {
+        if (e.detail === 2) {
             // Get the 10-K identifier
             const rawText = e.currentTarget.id;
             // The below converts the identifier to a link
@@ -35,30 +36,36 @@ export default function IncomeStatement(props) {
     
     function renderIncomeFields(financialData) {
         // Construct the "other" line. In short, it's a plug given other values
+        // TODO move this into a separate function
         for (let company of financialData["ciks"]){
-            financialData[company]["norm"]["oth"] = {}
-            for (let year in financialData[company]["norm"]["revenue"]) {
-                let rev = financialData[company]["norm"]["revenue"][year];
-                let cogs = financialData[company]["norm"]["cogs"][year] === "N/A" ? 0 : financialData[company]["norm"]["cogs"][year];
-                let rd = financialData[company]["norm"]["rd"][year] === "N/A" ? 0 : financialData[company]["norm"]["rd"][year];
-                let sga = financialData[company]["norm"]["sga"][year] === "N/A" ? 0 : financialData[company]["norm"]["sga"][year];
-                let op = financialData[company]["norm"]["op"][year] === "N/A" ? 0 : financialData[company]["norm"]["op"][year];
-                financialData[company]["norm"]["oth"][year] = financialData[company]["norm"]["grossprofit"][year] === "N/A" ? rev - cogs - rd - sga - op : financialData[company]["norm"]["grossprofit"][year] - rd - sga - op;
+            financialData[company]["is"]["norm"]["oth"] = {}
+            for (let year in financialData[company]["is"]["norm"]["revenue"]) {
+                let rev = financialData[company]["is"]["norm"]["revenue"][year];
+                let cogs = financialData[company]["is"]["norm"]["cogs"][year] === "N/A" ? 0 : financialData[company]["is"]["norm"]["cogs"][year];
+                let rd = financialData[company]["is"]["norm"]["rd"][year] === "N/A" ? 0 : financialData[company]["is"]["norm"]["rd"][year];
+                let sga = financialData[company]["is"]["norm"]["sga"][year] === "N/A" ? 0 : financialData[company]["is"]["norm"]["sga"][year];
+                let op = financialData[company]["is"]["norm"]["op"][year] === "N/A" ? 0 : financialData[company]["is"]["norm"]["op"][year];
+                financialData[company]["is"]["norm"]["oth"][year] = 
+                    financialData[company]["is"]["norm"]["grossprofit"][year] === "N/A" 
+                        ? rev - cogs - rd - sga - op 
+                        : financialData[company]["is"]["norm"]["grossprofit"][year] - rd - sga - op;
             }
         }
         // Add calculated 'other' to 'fields' property
-        financialData.fields.push("oth");
+        // financialData.fields.push("oth");
         // If user hasn't selected a year, default to most recent
         const year = props.yearSelected || Math.max(...financialData["years"]);
         // Get all the financial fields provided, converting to set for efficiency
         const fieldsToRender = new Set(financialData.fields);
         // Get all the companies provided
         const companiesToRender = financialData.ciks;
+        // alert(financialData[companiesToRender[0]]["is"]["norm"]['cogs']['2015']);
         const numCompanies = companiesToRender.length;
         // Generate table rows based on company JSON data and financial fields
         let tableRowsToRender = [];
+        
         tableRowsToRender.push(<tr>
-            <td></td>
+            <td><i>{year}</i></td>
                 { companiesToRender.map(cik => 
                 <td onClick={openFiling} id={`${cik}&${financialData[cik]['accn'][year]}`}><b>{numCompanies < 2 ? financialData["company_metadata"][cik]["name"] : financialData["company_metadata"][cik]["ticker"]} </b></td>)}
             </tr>)
@@ -67,11 +74,13 @@ export default function IncomeStatement(props) {
                 tableRowsToRender.push(
                     <tr id={field} onMouseDown={props.handleChartChange}>
                         <td className={`statement_header ${field}_header`}>{ fieldFormatting[field]["text"] }</td>
-                        { companiesToRender.map(company => <td className={field}> { !(year in financialData[company]["norm"][field]) || financialData[company]["norm"][field][year] === "N/A" ? "N/A" : financialData[company]["norm"][field][year].toFixed(2) }</td>) }
+                        { companiesToRender.map(company => <td className={field}> { !(year in financialData[company]["is"]["norm"][field]) || financialData[company]["is"]["norm"][field][year] === "N/A" ? "N/A" : financialData[company]["is"]["norm"][field][year].toFixed(2) }</td>) }
                     </tr>
                 );
             }
         });
+        
+        
         return tableRowsToRender;
     }
 

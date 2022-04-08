@@ -1,0 +1,22 @@
+# Features
+
+
+## Search
+- Industry search
+
+## Sections
+
+*Income Statement*
+
+- Color coding based on how company ranks relative to others currently selected, industry, maybe overall
+
+*Market Participant Data (?)*
+- Institutional ownership using 13-F filings
+
+## Charts
+
+*General*
+- Double click chart year to get relevant section of 10-K. Should at least get 10-K for the given year if section is impossible.
+
+*Revenue Share*
+- Mouse over year gives absolute revenue data

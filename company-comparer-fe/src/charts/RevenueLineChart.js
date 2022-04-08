@@ -48,7 +48,7 @@ export default function RevenueLineChart(props) {
             y: {
                 ticks: {
                     callback: function(value, index, values) {
-                    return (value * 100).toString() + "%";
+                    return (value * 100).toFixed(1)+ "%";
                     }
                 },
             },
@@ -70,7 +70,7 @@ export default function RevenueLineChart(props) {
    financialData.ciks.forEach (company => {
         let companyRevenueGrowth = [];
         for (let year of selectedYears) {
-            companyRevenueGrowth.push((financialData[company]["absolute"]["revenue"][year+1]/financialData[company]["absolute"]["revenue"][year])-1);
+            companyRevenueGrowth.push((financialData[company]["is"]["absolute"]["revenue"][year+1]/financialData[company]["is"]["absolute"]["revenue"][year])-1);
         }
         chartData.datasets.push({
             label: financialData["company_metadata"][company]["ticker"],

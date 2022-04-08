@@ -57,7 +57,7 @@ export default function RevenueBarChart(props) {
     financialData.ciks.forEach(company => {
       data["datasets"].push( {
           label: financialData["company_metadata"][company]["ticker"],
-          data: [financialData[company]["absolute"]["revenue"][selectedYear]],
+          data: [financialData[company]["is"]["absolute"]["revenue"][selectedYear]],
           backgroundColor: genRandomRGBString(),
       });
     })
