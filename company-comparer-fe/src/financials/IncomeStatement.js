@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 export default function IncomeStatement(props) {
     // TODO These should probably be in a config file
