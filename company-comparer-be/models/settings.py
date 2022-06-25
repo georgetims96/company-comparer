@@ -27,6 +27,7 @@ INVENTORY_DELTA = ['IncreaseDecreaseInInventories']
 OTHER_AR_DELTA = ['IncreaseDecreaseInOtherReceivables']
 AP_DELTA = ['IncreaseDecreaseInAccountsPayable']
 DR_DELTA = ['IncreaseDecreaseInContractWithCustomerLiability']
+OTHER_OP_CF_DELTA = ['IncreaseDecreaseInOtherOperatingLiabilities']
 
 
 # Relevant currency, filing type, and accounting standards
