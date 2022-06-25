@@ -22,12 +22,18 @@ SHARE_BASED_COMPENSATION_FIELDS = ['ShareBasedCompensation']
 DEFERRED_TAX_DELTA = ['DeferredIncomeTaxExpenseBenefit']
 
 ### Changes in Operating Assets and Liabilities
-AR_DELTA = ['IncreaseDecreaseInAccountsReceivable']
-INVENTORY_DELTA = ['IncreaseDecreaseInInventories']
-OTHER_AR_DELTA = ['IncreaseDecreaseInOtherReceivables']
-AP_DELTA = ['IncreaseDecreaseInAccountsPayable']
-DR_DELTA = ['IncreaseDecreaseInContractWithCustomerLiability']
-OTHER_OP_CF_DELTA = ['IncreaseDecreaseInOtherOperatingLiabilities']
+AR_DELTA_FIELDS = ['IncreaseDecreaseInAccountsReceivable']
+INVENTORY_DELTA_FIELDS = ['IncreaseDecreaseInInventories']
+OTHER_AR_DELTAS_FIELDS = ['IncreaseDecreaseInOtherReceivables']
+AP_DELTA_FIELDS = ['IncreaseDecreaseInAccountsPayable']
+DR_DELTA_FIELDS = ['IncreaseDecreaseInContractWithCustomerLiability']
+OTHER_OP_CF_DELTA_FIELDS = ['IncreaseDecreaseInOtherOperatingLiabilities']
+
+# Investing Activities
+
+INVESTING_CASH_FLOW_FIELDS = ['NetCashProvidedByUsedInInvestingActivities']
+PPE_CF_FIELDS = ['PaymentsToAcquirePropertyPlantAndEquipment']
+PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS = ['PaymentsToAcquireBusinessesNetOfCashAcquired']
 
 
 # Relevant currency, filing type, and accounting standards
