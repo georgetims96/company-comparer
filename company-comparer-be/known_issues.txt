@@ -5,7 +5,7 @@
 - Merck: skipping several 10-Ks
 = Darden: Recognizing years for which we have no annual filings
 - CrowdStrike (0001661779): not loading anything
-
+- Nike breaks the system?!
 
 ## General bugs
 
