@@ -17,7 +17,7 @@ class CashFlowStatement(FinancialStatement):
         self.comprehensive_years = self.get_accn_years()
         # Populate absolute data fields
         self.absolute_fields["cfo"] = self.determine_cfo()
-        self.absolute_fields["cogs"] = self.determine_cogs()
+        self.absolute_fields["da"] = self.determine_da()
         self.absolute_fields["grossprofit"] = self.determine_gross_profit()
         self.absolute_fields["sm"] = self.determine_sales_and_marketing()
         self.absolute_fields["ga"] = self.determine_general_and_administrative()
@@ -44,18 +44,18 @@ class CashFlowStatement(FinancialStatement):
         # Pass these cfo fields to the get_financial_data function
         return self.get_financial_data(cfo_fields)
     
-    def determine_cogs(self) -> dict:
+    def determine_da(self) -> dict:
         """
-        Determines COGS given externally configured fields and instance's raw JSON data
+        Determines D&A given externally configured fields and instance's raw JSON data
 
-        :return: company's absolute COGS data in {year : absolute_cogs} format
+        :return: company's absolute D&A data in {year : absolute_da} format
         """
-        # Relevant permutations of COG fields
-        cog_fields = settings.COGS_FIELDS
+        # Relevant permutations of D&A fields
+        da_fields = settings.DEPRECIATION_AMORTIZATION_FIELDS
         # Filter out fields that aren't in provided raw company data
-        cog_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], cog_fields))
+        da_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], da_fields))
         # FIXME just return 
-        return self.get_financial_data(cog_fields)
+        return self.get_financial_data(da_fields)
     
     '''
     Determines gross profit given externally configured fields and raw JSON data
