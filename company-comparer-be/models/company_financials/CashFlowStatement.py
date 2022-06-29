@@ -18,12 +18,7 @@ class CashFlowStatement(FinancialStatement):
         # Populate absolute data fields
         self.absolute_fields["cfo"] = self.determine_cfo()
         self.absolute_fields["da"] = self.determine_da()
-        self.absolute_fields["grossprofit"] = self.determine_gross_profit()
         self.absolute_fields["sbc"] = self.determine_sbc()
-        self.absolute_fields["ga"] = self.determine_general_and_administrative()
-        self.absolute_fields["sga"] = self.determine_s_g_and_a()
-        self.absolute_fields["rd"] = self.determine_r_and_d()
-        self.absolute_fields["op"] = self.determine_op()
 
         # Populate normalized data fields
         # TODO this should be dynamic from a config file. It should group fields together by common denominator
