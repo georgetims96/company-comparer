@@ -20,6 +20,7 @@ class CashFlowStatement(FinancialStatement):
         self.absolute_fields["da"] = self.determine_da()
         self.absolute_fields["sbc"] = self.determine_sbc()
         self.absolute_fields["ar_delta"] = self.determine_ar_delta()
+        self.absolute_fields["inv_delta"] = self.determine_inv_delta()
 
         # Populate normalized data fields
         # TODO this should be dynamic from a config file. It should group fields together by common denominator
@@ -66,7 +67,7 @@ class CashFlowStatement(FinancialStatement):
         # FIXME just return 
         return self.get_financial_data(sbc_fields)
         
-    def determine_ar_delt(self) -> dict:
+    def determine_ar_delta(self) -> dict:
         '''
         Determines AR delta given externally configured fields and raw JSON data 
 
@@ -78,6 +79,19 @@ class CashFlowStatement(FinancialStatement):
         ar_delta_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], ar_delta_fields))
         # FIXME just return 
         return self.get_financial_data(ar_delta_fields)
+
+    def determine_inv_delta(self) -> dict:
+        '''
+        Determines inventory delta given externally configured fields and raw JSON data 
+
+        :return: company's absolute inventory delta in {year : absolute_inventory_delta} format
+        '''
+        # Relevant permutations of inventory delta fields
+        inv_delta_fields = settings.INVENTORY_DELTA_FIELDS
+        # Filter out fields that aren't in provided raw company data
+        inv_delta_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], inv_delta_fields))
+        # FIXME just return 
+        return self.get_financial_data(inv_delta_fields)
 
     # FIXME: MOVE BELOW TO SUPERCLASS
     def get_comprehensive_years(self) -> list:
