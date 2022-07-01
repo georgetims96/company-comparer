@@ -5,7 +5,7 @@ from models.company_financials.FinancialStatement import FinancialStatement
 class CashFlowStatement(FinancialStatement):
     def __init__(self, raw_json: dict, accounting_standard:str, currency: str, accns: dict):
         """
-        Construct an income statement
+        Construct an cash flow statement
 
         :param raw_json: the raw company JSON data to be processed
         :param accounting_standard: the company's accounting standard
@@ -21,7 +21,9 @@ class CashFlowStatement(FinancialStatement):
         self.absolute_fields["sbc"] = self.determine_sbc()
         self.absolute_fields["ar_delta"] = self.determine_ar_delta()
         self.absolute_fields["inv_delta"] = self.determine_inv_delta()
-        self.absolute_fields["ap_delta"] = self.determin_ap_delta()
+        self.absolute_fields["ap_delta"] = self.determine_ap_delta()
+        self.absolute_fields["dr_delta"] = self.determine_dr_delta()
+
         # Populate normalized data fields
         # TODO this should be dynamic from a config file. It should group fields together by common denominator
         self.overlapping_years = self.get_overlapping_years(list(self.absolute_fields.keys()))
@@ -105,6 +107,19 @@ class CashFlowStatement(FinancialStatement):
         ap_delta_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], ap_delta_fields))
         # FIXME just return 
         return self.get_financial_data(ap_delta_fields)
+
+    def determine_dr_delta(self) -> dict:
+        '''
+        Determines DR delta given externally configured fields and raw JSON data 
+
+        :return: company's absolute DR delta in {year : absolute_DR_delta} format
+        '''
+        # Relevant permutations of dr delta fields
+        dr_delta_fields = settings.DR_DELTA_FIELDS
+        # Filter out fields that aren't in provided raw company data
+        dr_delta_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], dr_delta_fields))
+        # FIXME just return 
+        return self.get_financial_data(dr_delta_fields)
 
 
     # FIXME: MOVE BELOW TO SUPERCLASS
