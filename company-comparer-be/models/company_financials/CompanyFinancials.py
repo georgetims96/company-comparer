@@ -1,4 +1,5 @@
 import requests
+from models.company_financials.CashFlowStatement import CashFlowStatement
 from models.company_financials.IncomeStatement import IncomeStatement
 from models.company_financials.FinancialStatement import FinancialStatement
 import models.settings as settings
@@ -18,6 +19,7 @@ class CompanyFinancials:
         self.currency = self.determine_currency()
         self.accns = self.get_accns()
         self.income_statement = IncomeStatement(self.raw_json_data, self.accounting_standard, self.currency, self.accns)
+        self.cash_flow = CashFlowStatement(self.raw_json_data, self.accounting_standard, self.currency, self.accns)
 
     @staticmethod
     def download_raw_json(cik: str) -> dict:
@@ -88,6 +90,7 @@ class CompanyFinancials:
                     # FIXME MIGHT NEED TO CHANGE FINANCIAL DATA 
                 financial_data[filing['fy']] = filing['accn']
         # Return the constructed dictionary
+        print(financial_data)
         return financial_data
        
 
