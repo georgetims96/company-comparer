@@ -21,7 +21,7 @@ class CashFlowStatement(FinancialStatement):
         self.absolute_fields["sbc"] = self.determine_sbc()
         self.absolute_fields["ar_delta"] = self.determine_ar_delta()
         self.absolute_fields["inv_delta"] = self.determine_inv_delta()
-
+        self.absolute_fields["ap_delta"] = self.determin_ap_delta()
         # Populate normalized data fields
         # TODO this should be dynamic from a config file. It should group fields together by common denominator
         self.overlapping_years = self.get_overlapping_years(list(self.absolute_fields.keys()))
@@ -92,6 +92,20 @@ class CashFlowStatement(FinancialStatement):
         inv_delta_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], inv_delta_fields))
         # FIXME just return 
         return self.get_financial_data(inv_delta_fields)
+
+    def determine_ap_delta(self) -> dict:
+        '''
+        Determines AP delta given externally configured fields and raw JSON data 
+
+        :return: company's absolute AP delta in {year : absolute_ap_delta} format
+        '''
+        # Relevant permutations of AP delta fields
+        ap_delta_fields = settings.AP_DELTA_FIELDS
+        # Filter out fields that aren't in provided raw company data
+        ap_delta_fields = list(filter(lambda x: x in self.raw_json['facts'][self.accounting_standard], ap_delta_fields))
+        # FIXME just return 
+        return self.get_financial_data(ap_delta_fields)
+
 
     # FIXME: MOVE BELOW TO SUPERCLASS
     def get_comprehensive_years(self) -> list:
