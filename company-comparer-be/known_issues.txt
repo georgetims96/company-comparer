@@ -11,7 +11,7 @@
 ## General bugs
 
 - N/As on first load for several companies, including Walmart, Darden, Domino's Pizza
-- 
+- COGS "CostOfGoodsAndServicesSold" does not get captured despite inclusion in config 
 
 
 

@@ -34,24 +34,7 @@ export default function IncomeStatement(props) {
     }
     
     function renderIncomeFields(financialData) {
-        // Construct the "other" line. In short, it's a plug given other values
-        // TODO move this into a separate function
-        for (let company of financialData["ciks"]){
-            financialData[company]["is"]["norm"]["oth"] = {}
-            for (let year in financialData[company]["is"]["norm"]["revenue"]) {
-                let rev = financialData[company]["is"]["norm"]["revenue"][year];
-                let cogs = financialData[company]["is"]["norm"]["cogs"][year] === "N/A" ? 0 : financialData[company]["is"]["norm"]["cogs"][year];
-                let rd = financialData[company]["is"]["norm"]["rd"][year] === "N/A" ? 0 : financialData[company]["is"]["norm"]["rd"][year];
-                let sga = financialData[company]["is"]["norm"]["sga"][year] === "N/A" ? 0 : financialData[company]["is"]["norm"]["sga"][year];
-                let op = financialData[company]["is"]["norm"]["op"][year] === "N/A" ? 0 : financialData[company]["is"]["norm"]["op"][year];
-                financialData[company]["is"]["norm"]["oth"][year] = 
-                    financialData[company]["is"]["norm"]["grossprofit"][year] === "N/A" 
-                        ? rev - cogs - rd - sga - op 
-                        : financialData[company]["is"]["norm"]["grossprofit"][year] - rd - sga - op;
-            }
-        }
-        // Add calculated 'other' to 'fields' property
-        // financialData.fields.push("oth");
+        
         // If user hasn't selected a year, default to most recent
         const year = props.yearSelected || Math.max(...financialData["years"]);
         // Get all the financial fields provided, converting to set for efficiency

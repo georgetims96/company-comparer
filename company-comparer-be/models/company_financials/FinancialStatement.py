@@ -72,7 +72,8 @@ class FinancialStatement:
                     cur_year_data = eval(expression, cur_year_map)
                     computed_entry_data[year] = cur_year_data
                     break
-                except:
+                except Exception as e:
+                    print(e)
                     continue
         # Save computed data
         self.absolute_fields[name] = computed_entry_data
