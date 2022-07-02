@@ -18,16 +18,6 @@ class FinancialStatement:
         self.normed_fields = {}
         self.comprehensive_years = []
 
-        self.add_simple_financial_entry("revenue", settings.REVENUE_FIELDS, is_necessary=True)
-        self.add_simple_financial_entry("cogs", settings.COGS_FIELDS)
-
-        # Add Gross Margin
-        self.add_computed_financial_entry("gross_margin", ["revenue - cogs"])
-
-        # Normalize COGS
-        self.add_normed_financial_entry("cogs", "revenue")
-        self.add_normed_financial_entry("gross_margin", "revenue")
-    
     def add_simple_financial_entry(self, name: str, financial_fields: List[str], is_necessary: bool=False) -> None:
         """
         Add a simple financial entry (i.e. not calculated) to the financial statement
