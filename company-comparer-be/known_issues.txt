@@ -6,7 +6,7 @@
 = Darden: Recognizing years for which we have no annual filings
 - CrowdStrike (0001661779): not loading anything
 - ~~Nike breaks the system?! (Operating income field not accounted for)~~
-- Days_apart function breaks on Lyft
+- ~~Days_apart function breaks on Lyft~~
 
 ## General bugs
 

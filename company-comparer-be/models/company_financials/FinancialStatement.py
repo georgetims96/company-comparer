@@ -18,6 +18,7 @@ class FinancialStatement:
         self.normed_fields = {}
         self.comprehensive_years = []
 
+
     def add_simple_financial_entry(self, name: str, financial_fields: List[str], is_necessary: bool=False) -> None:
         """
         Add a simple financial entry (i.e. not calculated) to the financial statement
@@ -122,7 +123,7 @@ class FinancialStatement:
                 year_data = [x for x in filtered_data if x['accn'] == self.accns[year] and x['fy'] == year]
                 # Filter out interim/quarterly data
                 # FIXME remove
-                year_data = [x for x in year_data if FinancialStatement.days_apart(x['start'], x['end']) > 300]
+                year_data = [x for x in year_data if 'start' in x and 'end' in x and FinancialStatement.days_apart(x['start'], x['end']) > 300]
                 # If we have at least one entry remaining
                 if year_data:
                     # Get the latest entry (i.e. the entry for the most recent fiscal year)

@@ -33,7 +33,7 @@ class IncomeStatement(FinancialStatement):
 
         # add normed fields
         self.add_normed_financial_entry("revenue", "revenue")
-        self.add_normed_financial_entry("revenue", "revenue")
+        self.add_normed_financial_entry("cogs", "revenue")
         self.add_normed_financial_entry("grossprofit", "revenue")
         self.add_normed_financial_entry("sm", "revenue")
         self.add_normed_financial_entry("ga", "revenue")
