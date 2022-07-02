@@ -90,7 +90,6 @@ class CompanyFinancials:
                     # FIXME MIGHT NEED TO CHANGE FINANCIAL DATA 
                 financial_data[filing['fy']] = filing['accn']
         # Return the constructed dictionary
-        print(financial_data)
         return financial_data
        
 

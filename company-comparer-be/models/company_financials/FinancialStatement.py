@@ -38,7 +38,7 @@ class FinancialStatement:
         """
         # Filter out fields that don't appear in the 10-K
         filtered_fields = [x for x in financial_fields if x in self.raw_json['facts'][self.accounting_standard]]
-
+        
         # Add the relevant financial data to the financial statement
         self.absolute_fields[name] = self.get_financial_data(filtered_fields)
         # Check if the financial entry must be included in the data returned to the user
@@ -64,7 +64,6 @@ class FinancialStatement:
         computed_entry_data = {}
         # For every relevant year
         for year in years_to_calc:
-            print(year)
             # construct relevant variable map
             cur_year_map = {}
             # For every financial entry
@@ -132,6 +131,7 @@ class FinancialStatement:
                 # Get only financial entries for the current year
                 year_data = [x for x in filtered_data if x['accn'] == self.accns[year] and x['fy'] == year]
                 # Filter out interim/quarterly data
+                # FIXME remove
                 year_data = [x for x in year_data if FinancialStatement.days_apart(x['start'], x['end']) > 300]
                 # If we have at least one entry remaining
                 if year_data:
