@@ -190,32 +190,6 @@ class FinancialStatement:
         return list(self.accns.keys())
 
 
-    def normalize_financial_data(self, overlapping_years: list, norm_financial_field: str, fields_to_normalize: list) -> dict:
-        """
-        Returns financial data for the passed years normalized using the specified normalizing financial field
-
-        :param overlapping_years: years for which we want normalized data
-        :param norm_financial_field: the financial field from the absolute data we'll use to normalize (i.e. divisor)
-        :param fields_to_normalize: the financial fields from the absolute data that we'll normalize
-        :return: normalized financial data in the format
-        """
-        # Will store normalized company data
-        norm_company_data = {}
-        # Loop over provided financial fields
-        for field in fields_to_normalize:
-            # Set up the dictionary for the current field
-            norm_company_data[field] = {}
-            # Loop through the overlapping years
-            for year in overlapping_years:
-                # If year not present, set to N/A
-                if year not in self.absolute_fields[field] or year not in self.absolute_fields[norm_financial_field]:
-                    norm_company_data[field][year] = "N/A"
-                # Normalize company data based on provided field
-                else:
-                    norm_company_data[field][year] = self.absolute_fields[field][year] / self.absolute_fields[norm_financial_field][year]
-        # Return the normed data
-        return norm_company_data
-
     def get_comprehensive_fields_years(self, financial_fields_to_check: list) -> list:
         """
         Gets absolute financial data specified by a list of financial fields. Later entries in list will overwrite

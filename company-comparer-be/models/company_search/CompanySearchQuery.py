@@ -35,7 +35,6 @@ class CompanySearchQuery:
                 company_entity["name"] = data[key]["title"].title()
                 results.append(company_entity)
                 i += 1
-        print(results)
         return results
     
     def fill_zeros(self, cik: str) -> str:
