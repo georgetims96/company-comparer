@@ -17,7 +17,7 @@ OP_INC_FIELDS = ['IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInt
 
 ### Net Income Adjustments
 OPERATING_CASH_FLOW_FIELDS = ['NetCashProvidedByUsedInOperatingActivities']
-DEPRECIATION_AMORTIZATION_FIELDS = ['DepreciationDepletionAndAmortization']
+DEPRECIATION_AMORTIZATION_FIELDS = ['DepreciationAmortizationAndAccretionNet', 'DepreciationDepletionAndAmortization']
 SHARE_BASED_COMPENSATION_FIELDS = ['ShareBasedCompensation']
 DEFERRED_TAX_DELTA = ['DeferredIncomeTaxExpenseBenefit']
 
