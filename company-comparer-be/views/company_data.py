@@ -15,5 +15,5 @@ def company_financial_data(cik):
     # Merge the data into a single JSON object
     dat_to_return = CompanyFinancials.merge_company_data(companies_json_data)
     # TODO replace this with logging
-    # print(dat_to_return)
+    print(dat_to_return)
     return dat_to_return

@@ -19,7 +19,7 @@ class CompanyFinancials:
         self.currency = self.determine_currency()
         self.accns = self.get_accns()
         self.income_statement = IncomeStatement(self.raw_json_data, self.accounting_standard, self.currency, self.accns)
-        self.cash_flow = CashFlowStatement(self.raw_json_data, self.accounting_standard, self.currency, self.accns)
+        self.cash_flow_statement = CashFlowStatement(self.raw_json_data, self.accounting_standard, self.currency, self.accns)
 
     @staticmethod
     def download_raw_json(cik: str) -> dict:
@@ -110,6 +110,11 @@ class CompanyFinancials:
         json_to_return['data'][self.cik]['is'] = {}
         json_to_return['data'][self.cik]['is']['norm'] = self.income_statement.get_normed_data()
         json_to_return['data'][self.cik]['is']['absolute'] = self.income_statement.get_absolute_data()
+        
+        json_to_return['data'][self.cik]['cf'] = {}
+        json_to_return['data'][self.cik]['cf']['absolute'] = self.cash_flow_statement.get_absolute_data()
+        json_to_return['data'][self.cik]['cf']['norm'] = self.cash_flow_statement.get_normed_data()
+
         return json_to_return
     
     @staticmethod
