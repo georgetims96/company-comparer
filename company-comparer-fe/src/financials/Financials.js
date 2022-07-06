@@ -1,12 +1,68 @@
 import { useState, React } from 'react';
 import Grid from '@material-ui/core/Grid';
 import IncomeStatement from './IncomeStatement';
-import RevenueDonutChart from '../charts/RevenueDonutChart';
-import RevenueBarChart from '../charts/RevenueBarChart';
 import ExpenseLineChart from '../charts/ExpenseLineChart'
 import RevenueLineChart from '../charts/RevenueLineChart';
 import RevenueStackedChart from '../charts/RevenueStackedChart';
-import Paper from '@mui/material/Paper'
+import Paper from '@mui/material/Paper';
+import Tab from '@mui/material/Tab';
+import Tabs from '@mui/material/Tabs';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import CashFlowStatement from './CashFlowStatement';
+
+
+function TabPanel(props) {
+  const { children, value, index, ...other} = props;
+  return (
+    <div
+      role="tablepanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+     { value === index && (
+      <Box sx={{ p: 3}}>
+        <Typography>{children}</Typography>
+      </Box>
+     )} 
+    </div>
+  );
+}
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
+
+function FinancialStatementTabs(props) {
+  const [value, setValue] = useState(0);
+
+  const handleTabChange = (event, newValue) => {
+    setValue(newValue);
+  }
+
+  return (
+    <Box sx ={{ width: '100%'}}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider'}}>
+        <Tabs value={value} onChange={handleTabChange}>
+          <Tab label="I/S" {...a11yProps(0)} />
+          <Tab label="C/F" {...a11yProps(1)} />
+        </Tabs>
+        <TabPanel value={value} index={0}>
+          <IncomeStatement data={props.data} yearSelected={props.year} handleChartChange={props.updateChart}/>
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <CashFlowStatement data={props.data} yearSelected={props.year} handleChartChange={props.updateChart}/>
+        </TabPanel>
+      </Box>
+    </Box>
+  );
+
+}
 
 export default function Financials (props) {
     const [year, setYear] = useState(props.data.data.years[0]);
@@ -78,7 +134,7 @@ export default function Financials (props) {
                                 alignItems: "center"
                             }}
                         xs={12} md={6}>
-                            <IncomeStatement data={props.data} yearSelected={year} handleChartChange={updateChart}/>
+                          <FinancialStatementTabs data={props.data} yearSelected={year} updateChart={updateChart} />
                         </Grid>
                     </Grid>
                 </Paper>

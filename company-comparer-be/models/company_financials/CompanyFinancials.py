@@ -104,7 +104,7 @@ class CompanyFinancials:
         json_to_return['data'] = {}
         json_to_return['data']['ciks'] = [self.cik]
         json_to_return['data']['years'] = self.income_statement.get_comprehensive_years()
-        json_to_return['data']['fields'] = self.income_statement.get_fields()
+        json_to_return['data']['fields'] = self.income_statement.get_fields() + self.cash_flow_statement.get_fields()
         json_to_return['data'][self.cik] = {}
         json_to_return['data'][self.cik]['accn'] = self.get_accns()
         json_to_return['data'][self.cik]['is'] = {}
