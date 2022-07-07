@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CashFlowStatement(props) {
     // TODO These should probably be in a config file
-    const possibleFields = ["cfo", "da", "sbc", "ar_delta", "dr_delta"];
+    const possibleFields = ["cfo", "da", "sbc", "ar_delta"];
     // Maps JSON fields to appropriate user-friendly name
     const fieldFormatting = {
         "cfo": {"text": "CFO"},
@@ -46,10 +46,10 @@ export default function CashFlowStatement(props) {
             <td><i>{year}</i></td>
                 { companiesToRender.map(cik => 
                 <td onClick={openFiling} id={`${cik}&${financialData[cik]['accn'][year]}`}><b>{numCompanies < 2 ? financialData["company_metadata"][cik]["name"] : financialData["company_metadata"][cik]["ticker"]} </b></td>)}
-            </tr>)
+            </tr>);
+
         possibleFields.forEach(field => {
             if (fieldsToRender.has(field)) {
-                alert(financialData[companiesToRender[0]]["cf"]["norm"]["cfo"]["2020"]);
                 tableRowsToRender.push(
                     <tr id={field} onMouseDown={props.handleChartChange}>
                         <td className={`statement_header ${field}_header`}>{ fieldFormatting[field]["text"] }</td>
@@ -59,7 +59,7 @@ export default function CashFlowStatement(props) {
             }
         });
         
-        
+       // { companiesToRender.map(company => <td className={field}> { !(year in financialData[company]["cf"]["norm"][field]) || financialData[company]["cf"]["norm"][field][year] === "N/A" ? "N/A" : financialData[company]["cf"]["norm"][field][year].toFixed(2) }</td>) }
         return tableRowsToRender;
     }
 

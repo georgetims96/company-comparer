@@ -53,10 +53,10 @@ function FinancialStatementTabs(props) {
           <Tab label="C/F" {...a11yProps(1)} />
         </Tabs>
         <TabPanel value={value} index={0}>
-          <IncomeStatement data={props.data} yearSelected={props.year} handleChartChange={props.updateChart}/>
+          <IncomeStatement data={props.data} yearSelected={props.yearSelected} handleChartChange={props.updateChart}/>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <CashFlowStatement data={props.data} yearSelected={props.year} handleChartChange={props.updateChart}/>
+          <CashFlowStatement data={props.data} yearSelected={props.yearSelected} handleChartChange={props.updateChart}/>
         </TabPanel>
       </Box>
     </Box>
