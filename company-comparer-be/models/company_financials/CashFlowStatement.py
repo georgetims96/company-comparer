@@ -39,5 +39,6 @@ class CashFlowStatement(FinancialStatement):
         self.add_normed_financial_entry("ar_delta", "revenue")
         self.add_normed_financial_entry("inv_delta", "revenue")
         self.add_normed_financial_entry("ap_delta", "revenue")
+        self.add_normed_financial_entry("dr_delta", "revenue")
 
         self.add_normed_financial_entry("cfi", "revenue")

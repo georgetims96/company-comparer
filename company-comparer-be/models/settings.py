@@ -17,12 +17,12 @@ OP_INC_FIELDS = ['IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInt
 
 ### Net Income Adjustments
 OPERATING_CASH_FLOW_FIELDS = ['NetCashProvidedByUsedInOperatingActivities']
-DEPRECIATION_AMORTIZATION_FIELDS = ['DepreciationAmortizationAndAccretionNet', 'DepreciationDepletionAndAmortization']
+DEPRECIATION_AMORTIZATION_FIELDS = ['DepreciationAmortizationAndOther', 'DepreciationAmortizationAndAccretionNet', 'DepreciationDepletionAndAmortization']
 SHARE_BASED_COMPENSATION_FIELDS = ['ShareBasedCompensation']
 DEFERRED_TAX_DELTA = ['DeferredIncomeTaxExpenseBenefit']
 
 ### Changes in Operating Assets and Liabilities
-AR_DELTA_FIELDS = ['IncreaseDecreaseInAccountsReceivable']
+AR_DELTA_FIELDS = ['IncreaseDecreaseInAccountsReceivableAndOtherOperatingAssets', 'IncreaseDecreaseInAccountsReceivable']
 INVENTORY_DELTA_FIELDS = ['IncreaseDecreaseInInventories']
 OTHER_AR_DELTAS_FIELDS = ['IncreaseDecreaseInOtherReceivables']
 AP_DELTA_FIELDS = ['IncreaseDecreaseInAccountsPayable']

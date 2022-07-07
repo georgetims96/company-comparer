@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function CashFlowStatement(props) {
     // TODO These should probably be in a config file
-    const possibleFields = ["cfo", "da", "sbc", "ar_delta"];
+    const possibleFields = ["cfo", "da", "sbc", "ar_delta", "dr_delta"];
     // Maps JSON fields to appropriate user-friendly name
     const fieldFormatting = {
         "cfo": {"text": "CFO"},
