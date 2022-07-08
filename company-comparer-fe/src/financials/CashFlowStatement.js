@@ -8,8 +8,8 @@ export default function CashFlowStatement(props) {
         "cfo": {"text": "CFO"},
         "da": {"text": "D&A"},
         "sbc": {"text": "SBC"},
-        "ar_delta": {"text": "Change A/R"},
-        "dr_delta": {"text": "Change D/R", "style": ""},
+        "ar_delta": {"text": "Δ A/R"},
+        "dr_delta": {"text": "Δ D/R", "style": ""},
     }
 
     function openFiling(e) {
