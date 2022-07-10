@@ -35,6 +35,7 @@ class CashFlowStatement(FinancialStatement):
         self.add_simple_financial_entry("ppe", settings.PPE_CF_FIELDS)
         self.add_simple_financial_entry("acq", settings.PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS)
 
+        # Operating Cash Flow Normed
         self.add_normed_financial_entry("cfo", "revenue")
         self.add_normed_financial_entry("da", "revenue")
         self.add_normed_financial_entry("sbc", "revenue")
@@ -43,6 +44,7 @@ class CashFlowStatement(FinancialStatement):
         self.add_normed_financial_entry("ap_delta", "revenue")
         self.add_normed_financial_entry("dr_delta", "revenue")
         
+        # Investing Cash Flow Normed
         self.add_normed_financial_entry("cfi", "revenue")
         self.add_normed_financial_entry("ppe", "revenue")
         self.add_normed_financial_entry("acq", "revenue")
