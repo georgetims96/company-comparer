@@ -35,6 +35,11 @@ INVESTING_CASH_FLOW_FIELDS = ['NetCashProvidedByUsedInInvestingActivities']
 PPE_CF_FIELDS = ['PaymentsToAcquirePropertyPlantAndEquipment']
 PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS = ['PaymentsToAcquireBusinessesNetOfCashAcquired']
 
+PURCHASE_OF_MARKETABLE_SECURITIES = ['PaymentsToAcquireAvailableForSaleSecuritiesDebt']
+PROCEEDS_FROM_MARKETABLE_MATURITIES = ['ProceedsFromMaturitiesPrepaymentsAndCallsOfAvailableForSaleSecurities']
+PROCEEDS_FROM_MARKETABLE_SALES = ['ProceedsFromSaleOfAvailableForSaleSecuritiesDebt']
+PURCHASE_OF_NONMARKETABLE_SECURITIES = ['PaymentsToAcquireOtherInvestments']
+PROCEEDS_FROM_NONMARKETABLE_SECURITIES = ['PaymentsToAcquireOtherInvestments']
 
 # Relevant currency, filing type, and accounting standards
 
