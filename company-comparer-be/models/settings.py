@@ -23,7 +23,7 @@ SHARE_BASED_COMPENSATION_FIELDS = ['ShareBasedCompensation']
 DEFERRED_TAX_DELTA = ['DeferredIncomeTaxExpenseBenefit']
 
 ### Changes in Operating Assets and Liabilities
-AR_DELTA_FIELDS = ['IncreaseDecreaseInAccountsReceivableAndOtherOperatingAssets', 'IncreaseDecreaseInAccountsReceivable']
+AR_DELTA_FIELDS = ['IncreaseDecreaseInReceivables', 'IncreaseDecreaseInAccountsReceivableAndOtherOperatingAssets', 'IncreaseDecreaseInAccountsAndOtherReceivables', 'IncreaseDecreaseInAccountsReceivable']
 INVENTORY_DELTA_FIELDS = ['IncreaseDecreaseInRetailRelatedInventories', 'IncreaseDecreaseInInventories']
 OTHER_AR_DELTAS_FIELDS = ['IncreaseDecreaseInOtherReceivables']
 AP_DELTA_FIELDS = ['IncreaseDecreaseInAccountsPayable']
