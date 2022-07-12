@@ -29,7 +29,7 @@ class IncomeStatement(FinancialStatement):
         # Add computed fields
         self.add_computed_financial_entry("grossprofit", ["grossprofit", "revenue - cogs"])
         self.add_computed_financial_entry("sga", ["sm + ga", "sga"])
-        self.add_computed_financial_entry("oth", ["revenue - cogs - sga - rd"])
+        self.add_computed_financial_entry("oth", ["revenue - opt('cogs') - opt('sga') - opt('rd')-opt('op')"])
 
         # add normed fields
         self.add_normed_financial_entry("revenue", "revenue")
