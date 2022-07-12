@@ -17,6 +17,7 @@
 
 *General*
 - Double click chart year to get relevant section of 10-K. Should at least get 10-K for the given year if section is impossible.
+- Figure out clean way of having optional argument in computed terms
 
 *Revenue Share*
 - Mouse over year gives absolute revenue data

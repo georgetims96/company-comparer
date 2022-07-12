@@ -16,6 +16,7 @@ OP_INC_FIELDS = ['IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInt
 ## Cash Flow Fields
 
 ### Net Income Adjustments
+NET_INCOME_FIELDS = ['NetIncomeLoss']
 OPERATING_CASH_FLOW_FIELDS = ['NetCashProvidedByUsedInOperatingActivities']
 DEPRECIATION_AMORTIZATION_FIELDS = ['DepreciationAmortizationAndOther', 'DepreciationAmortizationAndAccretionNet', 'DepreciationDepletionAndAmortization']
 SHARE_BASED_COMPENSATION_FIELDS = ['ShareBasedCompensation']
@@ -33,7 +34,7 @@ OTHER_OP_CF_DELTA_FIELDS = ['IncreaseDecreaseInOtherOperatingLiabilities']
 
 INVESTING_CASH_FLOW_FIELDS = ['NetCashProvidedByUsedInInvestingActivities']
 PPE_CF_FIELDS = ['PaymentsToAcquirePropertyPlantAndEquipment']
-PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS = ['PaymentsToAcquireBusinessesNetOfCashAcquired']
+PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS = ['PaymentsToAcquireBusinessesGross', 'PaymentsToAcquireBusinessesNetOfCashAcquired']
 
 PURCHASE_OF_MARKETABLE_SECURITIES = ['PaymentsToAcquireAvailableForSaleSecuritiesDebt']
 PROCEEDS_FROM_MARKETABLE_MATURITIES = ['ProceedsFromMaturitiesPrepaymentsAndCallsOfAvailableForSaleSecurities']

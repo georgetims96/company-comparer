@@ -56,6 +56,7 @@ class FinancialStatement:
         # For every relevant year
         for year in years_to_calc:
             # construct relevant variable map
+            # TODO add OPT('x') function that makes inclusion of a specific field in a calc optional
             cur_year_map = {}
             # For every financial entry
             for entry in self.absolute_fields:
