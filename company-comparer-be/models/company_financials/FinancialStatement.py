@@ -59,6 +59,12 @@ class FinancialStatement:
             # TODO add OPT('x') function that makes inclusion of a specific field in a calc optional
             cur_year_map = {}
             # For every financial entry
+            def opt(expr: str):
+              if expr in cur_year_map:
+                return cur_year_map
+              else:
+                return 0
+            cur_year_map['opt'] = opt
             for entry in self.absolute_fields:
                 # Check if we have data for the given year
                 if year in self.absolute_fields[entry]:
