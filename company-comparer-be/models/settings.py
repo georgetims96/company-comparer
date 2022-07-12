@@ -24,7 +24,7 @@ DEFERRED_TAX_DELTA = ['DeferredIncomeTaxExpenseBenefit']
 
 ### Changes in Operating Assets and Liabilities
 AR_DELTA_FIELDS = ['IncreaseDecreaseInAccountsReceivableAndOtherOperatingAssets', 'IncreaseDecreaseInAccountsReceivable']
-INVENTORY_DELTA_FIELDS = ['IncreaseDecreaseInInventories']
+INVENTORY_DELTA_FIELDS = ['IncreaseDecreaseInRetailRelatedInventories', 'IncreaseDecreaseInInventories']
 OTHER_AR_DELTAS_FIELDS = ['IncreaseDecreaseInOtherReceivables']
 AP_DELTA_FIELDS = ['IncreaseDecreaseInAccountsPayable']
 DR_DELTA_FIELDS = ['IncreaseDecreaseInContractWithCustomerLiability']
@@ -33,7 +33,7 @@ OTHER_OP_CF_DELTA_FIELDS = ['IncreaseDecreaseInOtherOperatingLiabilities']
 # Investing Activities
 
 INVESTING_CASH_FLOW_FIELDS = ['NetCashProvidedByUsedInInvestingActivities']
-PPE_CF_FIELDS = ['PaymentsToAcquirePropertyPlantAndEquipment']
+PPE_CF_FIELDS = ['PaymentsToAcquireProductiveAssets', 'PaymentsToAcquirePropertyPlantAndEquipment']
 PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS = ['PaymentsToAcquireBusinessesGross', 'PaymentsToAcquireBusinessesNetOfCashAcquired']
 
 PURCHASE_OF_MARKETABLE_SECURITIES = ['PaymentsToAcquireAvailableForSaleSecuritiesDebt']

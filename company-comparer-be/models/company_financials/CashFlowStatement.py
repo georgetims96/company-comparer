@@ -28,13 +28,14 @@ class CashFlowStatement(FinancialStatement):
         self.add_simple_financial_entry("ar_delta", settings.AR_DELTA_FIELDS)
         self.add_simple_financial_entry("inv_delta", settings.INVENTORY_DELTA_FIELDS)
         self.add_simple_financial_entry("ap_delta", settings.AP_DELTA_FIELDS)
-        self.add_simple_financial_entry("dr_delta", settings.AP_DELTA_FIELDS)
+        self.add_simple_financial_entry("dr_delta", settings.DR_DELTA_FIELDS)
 
         # Investing cash flow items
         self.add_simple_financial_entry("cfi", settings.INVESTING_CASH_FLOW_FIELDS)
         self.add_simple_financial_entry("ppe", settings.PPE_CF_FIELDS)
         self.add_simple_financial_entry("acq", settings.PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS)
 
+        self.add_computed_financial_entry("wc_delta", ["opt('ar_delta')+opt('inv_delta')-opt('ap_delta')-opt('dr_delta')"])
         # Operating Cash Flow Normed
         self.add_normed_financial_entry("cfo", "revenue")
         self.add_normed_financial_entry("da", "revenue")
@@ -43,6 +44,7 @@ class CashFlowStatement(FinancialStatement):
         self.add_normed_financial_entry("inv_delta", "revenue")
         self.add_normed_financial_entry("ap_delta", "revenue")
         self.add_normed_financial_entry("dr_delta", "revenue")
+        self.add_normed_financial_entry("wc_delta", "revenue")
         
         # Investing Cash Flow Normed
         self.add_normed_financial_entry("cfi", "revenue")

@@ -61,7 +61,7 @@ class FinancialStatement:
             # For every financial entry
             def opt(expr: str):
               if expr in cur_year_map:
-                return cur_year_map
+                return cur_year_map[expr]
               else:
                 return 0
             cur_year_map['opt'] = opt
