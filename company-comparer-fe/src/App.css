@@ -9,37 +9,37 @@
 
 
 /* IncomeStatement */
-.grossprofit {
+.grossprofit_is {
   font-weight: bold;
   border-top: 1px solid black;
   border-bottom: 3px double black;
 }
 
-.statement_header {
+.statement_header_is {
   text-align: left;
   border-right: 3px solid lightgrey;
 }
 
-.grossprofit_header {
+.grossprofit_header_is {
   font-weight: bold;
 }
 
-.op {
+.op_is {
   font-weight: black;
   border-top: 1px solid black;
   border-bottom: 3px double black;
 }
 
-.op_header {
+.op_header_is {
   font-weight: bold;
 }
 
-.sm_header {
+.sm_header_is {
   font-style: italic;
   padding-left: 10px;
 }
 
-.ga_header {
+.ga_header_is {
   font-style: italic;
   padding-left: 10px;
 }

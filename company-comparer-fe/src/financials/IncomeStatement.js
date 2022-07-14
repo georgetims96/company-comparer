@@ -55,8 +55,8 @@ export default function IncomeStatement(props) {
             if (fieldsToRender.has(field)) {
                 tableRowsToRender.push(
                     <tr id={field} onMouseDown={props.handleChartChange}>
-                        <td className={`statement_header ${field}_header`}>{ fieldFormatting[field]["text"] }</td>
-                        { companiesToRender.map(company => <td className={field}> { !(year in financialData[company]["is"]["norm"][field]) || financialData[company]["is"]["norm"][field][year] === "N/A" ? "N/A" : financialData[company]["is"]["norm"][field][year].toFixed(2) }</td>) }
+                        <td className={`statement_header_is ${field}_header_is`}>{ fieldFormatting[field]["text"] }</td>
+                        { companiesToRender.map(company => <td className={`${field}_is`}> { !(year in financialData[company]["is"]["norm"][field]) || financialData[company]["is"]["norm"][field][year] === "N/A" ? "N/A" : financialData[company]["is"]["norm"][field][year].toFixed(2) }</td>) }
                     </tr>
                 );
             }
