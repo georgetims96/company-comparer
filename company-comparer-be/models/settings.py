@@ -16,25 +16,26 @@ OP_INC_FIELDS = ['IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInt
 ## Cash Flow Fields
 
 ### Net Income Adjustments
-NET_INCOME_FIELDS = ['NetIncomeLoss']
-OPERATING_CASH_FLOW_FIELDS = ['NetCashProvidedByUsedInOperatingActivitiesContinuingOperations', 'NetCashProvidedByUsedInOperatingActivities']
-DEPRECIATION_AMORTIZATION_FIELDS = ['DepreciationAmortizationAndOther', 'DepreciationAmortizationAndAccretionNet', 'DepreciationDepletionAndAmortization']
-SHARE_BASED_COMPENSATION_FIELDS = ['ShareBasedCompensation']
+NET_INCOME_FIELDS = ['ProfitLoss', 'NetIncomeLossAvailableToCommonStockholdersBasic', 'NetIncomeLoss']
+OPERATING_CASH_FLOW_FIELDS = ['CashFlowsFromUsedInOperatingActivities', 'NetCashProvidedByUsedInOperatingActivitiesContinuingOperations', 'NetCashProvidedByUsedInOperatingActivities']
+# IFRS separates depreciation and amortization. Move first one to separate field
+DEPRECIATION_AMORTIZATION_FIELDS = ['AdjustmentsForDepreciationExpense', 'DepreciationAmortizationAndOther', 'DepreciationAmortizationAndAccretionNet', 'DepreciationDepletionAndAmortization']
+SHARE_BASED_COMPENSATION_FIELDS = ['AdjustmentsForSharebasedPayments', 'ShareBasedCompensation']
 DEFERRED_TAX_DELTA = ['DeferredIncomeTaxExpenseBenefit']
 
 ### Changes in Operating Assets and Liabilities
-AR_DELTA_FIELDS = ['IncreaseDecreaseInReceivables', 'IncreaseDecreaseInAccountsReceivableAndOtherOperatingAssets', 'IncreaseDecreaseInAccountsAndOtherReceivables', 'IncreaseDecreaseInAccountsReceivable']
+AR_DELTA_FIELDS = ['AdjustmentsForDecreaseIncreaseInTradeAndOtherReceivables', 'IncreaseDecreaseInReceivables', 'IncreaseDecreaseInAccountsReceivableAndOtherOperatingAssets', 'IncreaseDecreaseInAccountsAndOtherReceivables', 'IncreaseDecreaseInAccountsReceivable']
 INVENTORY_DELTA_FIELDS = ['IncreaseDecreaseInRetailRelatedInventories', 'IncreaseDecreaseInInventories']
 OTHER_AR_DELTAS_FIELDS = ['IncreaseDecreaseInOtherReceivables']
-AP_DELTA_FIELDS = ['IncreaseDecreaseInAccountsPayable']
-DR_DELTA_FIELDS = ['IncreaseDecreaseInContractWithCustomerLiability']
+AP_DELTA_FIELDS = ['AdjustmentsForIncreaseDecreaseInTradeAndOtherPayables', 'IncreaseDecreaseInAccountsPayable']
+DR_DELTA_FIELDS = ['AdjustmentsForIncreaseDecreaseInDeferredIncomeIncludingContractLiabilities', 'IncreaseDecreaseInContractWithCustomerLiability']
 OTHER_OP_CF_DELTA_FIELDS = ['IncreaseDecreaseInOtherOperatingLiabilities']
 
 # Investing Activities
 
-INVESTING_CASH_FLOW_FIELDS = ['NetCashProvidedByUsedInInvestingActivitiesContinuingOperations', 'NetCashProvidedByUsedInInvestingActivities']
-PPE_CF_FIELDS = ['PaymentsToAcquireProductiveAssets', 'PaymentsToAcquirePropertyPlantAndEquipment']
-PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS = ['PaymentsToAcquireBusinessesGross', 'PaymentsToAcquireBusinessesNetOfCashAcquired']
+INVESTING_CASH_FLOW_FIELDS = ['CashFlowsFromUsedInInvestingActivities', 'NetCashProvidedByUsedInInvestingActivitiesContinuingOperations', 'NetCashProvidedByUsedInInvestingActivities']
+PPE_CF_FIELDS = ['PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities', 'PaymentsToAcquireProductiveAssets', 'PaymentsToAcquirePropertyPlantAndEquipment']
+PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS = ['CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities', 'PaymentsToAcquireBusinessesGross', 'PaymentsToAcquireBusinessesNetOfCashAcquired']
 
 PURCHASE_OF_MARKETABLE_SECURITIES = ['PaymentsToAcquireAvailableForSaleSecuritiesDebt']
 PROCEEDS_FROM_MARKETABLE_MATURITIES = ['ProceedsFromMaturitiesPrepaymentsAndCallsOfAvailableForSaleSecurities']
