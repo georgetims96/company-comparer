@@ -61,8 +61,8 @@ export default function CashFlowStatement(props) {
             if (fieldsToRender.has(field)) {
                 tableRowsToRender.push(
                     <tr id={field} onMouseDown={props.handleChartChange}>
-                        <td className={`statement_header ${field}_header`}>{ fieldFormatting[field]["text"] }</td>
-                        { companiesToRender.map(company => <td className={field}> { !(year in financialData[company]["cf"]["norm"][field]) || financialData[company]["cf"]["norm"][field][year] === "N/A" ? "N/A" : financialData[company]["cf"]["norm"][field][year].toFixed(2) }</td>) }
+                        <td className={`statement_header_cf ${field}_header_cf`}>{ fieldFormatting[field]["text"] }</td>
+                        { companiesToRender.map(company => <td className={`${field}_cf`}> { !(year in financialData[company]["cf"]["norm"][field]) || financialData[company]["cf"]["norm"][field][year] === "N/A" ? "N/A" : financialData[company]["cf"]["norm"][field][year].toFixed(2) }</td>) }
                     </tr>
                 );
             }
