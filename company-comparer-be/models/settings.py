@@ -19,7 +19,7 @@ OP_INC_FIELDS = ['IncomeLossFromContinuingOperationsBeforeIncomeTaxesMinorityInt
 NET_INCOME_FIELDS = ['ProfitLoss', 'NetIncomeLossAvailableToCommonStockholdersBasic', 'NetIncomeLoss']
 OPERATING_CASH_FLOW_FIELDS = ['CashFlowsFromUsedInOperatingActivities', 'NetCashProvidedByUsedInOperatingActivitiesContinuingOperations', 'NetCashProvidedByUsedInOperatingActivities']
 # IFRS separates depreciation and amortization. Move first one to separate field
-DEPRECIATION_AMORTIZATION_FIELDS = ['AdjustmentsForDepreciationExpense', 'DepreciationAmortizationAndOther', 'DepreciationAmortizationAndAccretionNet', 'DepreciationDepletionAndAmortization']
+DEPRECIATION_AMORTIZATION_FIELDS = ['DepreciationAndAmortization', 'AdjustmentsForDepreciationExpense', 'DepreciationAmortizationAndOther', 'DepreciationAmortizationAndAccretionNet', 'DepreciationDepletionAndAmortization']
 SHARE_BASED_COMPENSATION_FIELDS = ['AdjustmentsForSharebasedPayments', 'ShareBasedCompensation']
 DEFERRED_TAX_DELTA = ['DeferredIncomeTaxExpenseBenefit']
 
@@ -34,7 +34,7 @@ OTHER_OP_CF_DELTA_FIELDS = ['IncreaseDecreaseInOtherOperatingLiabilities']
 # Investing Activities
 
 INVESTING_CASH_FLOW_FIELDS = ['CashFlowsFromUsedInInvestingActivities', 'NetCashProvidedByUsedInInvestingActivitiesContinuingOperations', 'NetCashProvidedByUsedInInvestingActivities']
-PPE_CF_FIELDS = ['PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities', 'PaymentsToAcquireProductiveAssets', 'PaymentsToAcquirePropertyPlantAndEquipment']
+PPE_CF_FIELDS = ['PurchasesOfPropertyAndEquipmentAndIntangibleAssets', 'PurchaseOfPropertyPlantAndEquipmentClassifiedAsInvestingActivities', 'PaymentsToAcquireProductiveAssets', 'PaymentsToAcquirePropertyPlantAndEquipment']
 PAYMENTS_TO_ACQUIRE_BUSINESSES_FIELDS = ['CashFlowsUsedInObtainingControlOfSubsidiariesOrOtherBusinessesClassifiedAsInvestingActivities', 'PaymentsToAcquireBusinessesGross', 'PaymentsToAcquireBusinessesNetOfCashAcquired']
 PAYMENTS_TO_DEVELOP_SOFTWARE_FIELDS = ['PaymentsToDevelopSoftware']
 
